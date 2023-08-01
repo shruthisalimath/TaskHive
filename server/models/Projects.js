@@ -9,12 +9,7 @@ const projectSchema = new Schema({
     type: String,
     required: false,
   },
-  status: {
-    type: String,
-    enum: ['Not Started', 'In Progress', 'Completed'],
-    default: 'Not Started',
-  },
-  startDate: {
+startDate: {
     type: Date,
     default: null,
   },
