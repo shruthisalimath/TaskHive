@@ -5,11 +5,10 @@ const taskSchema = new Schema({
     type: String,
     required: true,
   },
-  description: String, 
+  comment: String, 
   status: {
     type: String,
-    enum: ['Not Started', 'In Progress', 'Completed'],
-    default: 'Not Started',
+    enum: ['To-Do', 'In Progress', 'Completed'],
   },
   dueDate: Date,
   project: {

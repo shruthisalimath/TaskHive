@@ -5,7 +5,6 @@ const typeDefs = gql`
         _id: ID!
         name: String!
         description: String
-        status: String
         startDate: String
         endDate: String
         tasks: [Task]
@@ -15,7 +14,7 @@ const typeDefs = gql`
     type Task {
         _id: ID!
         name: Sting!
-        description: String
+        comment: String
         status: String
         dueDate: String
         project: Project
