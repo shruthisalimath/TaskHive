@@ -1,1 +1,1 @@
-# TaskHive
+# TaskHive - project management
