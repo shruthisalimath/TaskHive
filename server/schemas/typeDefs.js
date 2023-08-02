@@ -13,7 +13,7 @@ const typeDefs = gql`
 
     type Task {
         _id: ID!
-        name: Sting!
+        name: String!
         comment: String
         status: String
         dueDate: String
