@@ -11,14 +11,13 @@ import DraggableCard from '../components/DraggableCard';
 import DroppableZone from '../components/DroppableZone';
 import {DndContext} from '@dnd-kit/core';
 
-
 const Home = () => {
     const { loading, data } = useQuery(QUERY_PROJECTS);
     const projects = data?.projects || [];
 
     const containers = ['A', 'B', 'C'];
     const [parent, setParent] = useState(null);
-    
+
     const draggableMarkup = (
       <DraggableCard id="draggable">Drag me</DraggableCard>
     );
