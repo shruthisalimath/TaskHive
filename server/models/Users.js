@@ -21,7 +21,7 @@ const userSchema = new Schema({
         trim: true,
         minLength: 5,
         maxLength: 255,
-        unique: true,
+        //unique: true,
     },
     password: {
         type: String,
@@ -36,12 +36,12 @@ const userSchema = new Schema({
             ref: 'Projects',
         },
     ],
-    tasks: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Tasks',
-        },
-    ],
+    // tasks: [
+    //     {
+    //         type: Schema.Types.ObjectId,
+    //         ref: 'Tasks',
+    //     },
+    // ],
 });
 
 const Users = model('Users', userSchema);

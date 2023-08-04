@@ -15,10 +15,10 @@ const taskSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Projects', 
   },
-  assignedTo: {
-    type: Schema.Types.ObjectId,
-    ref: 'Users', 
-  },
+  // assignedTo: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Users', 
+  // },
 });
 
 const Task = model('Task', taskSchema);

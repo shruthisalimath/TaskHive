@@ -23,12 +23,12 @@ startDate: {
       ref: 'Task',
     },
   ],
-  users: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Users',
-    },
-  ],
+  // users: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'Users',
+  //   },
+  // ],
 });
 
 const Project = model('Project', projectSchema);
