@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProjectList = (projects) => {
+const ProjectList = ({projects}) => {
   console.log(projects);
   if (projects.length <= 0) {
     return <h3>No Projects Yet</h3>;
