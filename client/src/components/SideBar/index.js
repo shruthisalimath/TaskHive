@@ -1,5 +1,5 @@
 import React from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const SideBar = ({projects}) => {
@@ -10,7 +10,9 @@ const SideBar = ({projects}) => {
             <ul>
                 {projects && projects.map((project) => (
                     <li key={project._id}>
-                        <h1>{project.name}</h1>
+                        <Link to={`/projects/${project._id}`}>
+                            <span>{project.name}</span>
+                        </Link>
                     </li>
                 ))}
             </ul>

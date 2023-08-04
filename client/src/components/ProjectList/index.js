@@ -1,5 +1,5 @@
 import React from 'react';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ProjectList = ({projects}) => {
   console.log(projects);
@@ -18,12 +18,12 @@ const ProjectList = ({projects}) => {
                   Project: {project.name} <br />
                 </h4>
                 <h4 className="card-header bg-dark text-light p-2 m-0">task: {project.description}</h4>
-                {/* <Link
+                <Link
                   className="btn btn-block btn-squared btn-light text-dark"
                   to={`/projects/${project._id}`}
                 >
                   View project.
-                </Link> */}
+                </Link>
               </div>
             </div>
           ))}

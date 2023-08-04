@@ -17,6 +17,8 @@ const Project = () => {
 
 export default Project;
 
+// See week 21 Mern activity 19 for React Router/
+
 // a single project is passed into this component from the ProjectList component
 // test project id = 64cc5b703b048340f8be464b
 
@@ -26,8 +28,10 @@ export default Project;
 // the name is displayed as the title of the project
 
 // the tasks property is an array of tasks associated with the project
-    //there are 3 task arrays: toDo, inProgress, and completed
-    //each task array is mapped over and the task name is displayed
+   // each task in the array has a status property that is either "toDo", "inProgress", or "completed"
+   // tasks are displayed in columns based on their status
+   // the tasks are displayed as cards
+    // each card has a header with the name of the task and an edit button
 
 // the description is displayed as the description of the project
 
