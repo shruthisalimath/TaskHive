@@ -6,7 +6,7 @@ const SideBar = ({projects}) => {
     console.log(projects)
     return (
         <aside className="aside">
-          <h3>Projects</h3>
+          <h3>Dashboard Controls (this will be a side bar on the left)</h3>
             <ul>
                 {projects && projects.map((project) => (
                     <li key={project._id}>
@@ -16,6 +16,8 @@ const SideBar = ({projects}) => {
                     </li>
                 ))}
             </ul>
+            <hr></hr>
+            <hr></hr>
         </aside>
     );
 }

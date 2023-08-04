@@ -19,7 +19,7 @@ const Home = () => {
           <div className="col-12 col-md-10 my-3">
             {loading ? (
               <div>Loading...</div>
-            ) : (
+            ) : ( 
               <ProjectList
                 projects={projects}
               />
