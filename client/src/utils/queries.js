@@ -14,13 +14,6 @@ export const QUERY_PROJECTS = gql`
                 comment
                 status
                 dueDate
-                assignedTo
-            }
-            users {
-                    _id
-                    firstName
-                    lastName
-                    email
             }
         }
     }
