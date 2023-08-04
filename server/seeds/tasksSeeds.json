@@ -1,6 +1,7 @@
 [
     {
-        "name": "task 1"
+        "name": "task 1",
+        "comment": "bloopity doop"
     },
     {
         "name": "task 2"

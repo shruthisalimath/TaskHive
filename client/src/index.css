@@ -22,3 +22,7 @@ code {
   --warning-color: #ffc107;
   --danger-color: #dc3545;
 }
+
+#card {
+  background-color: var(--background-light);
+}
