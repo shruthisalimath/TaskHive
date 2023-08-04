@@ -27,7 +27,7 @@ type Project {
         comment: String
         status: String
         dueDate: String
-        project: Project
+        projectName: Project
     }
 
     

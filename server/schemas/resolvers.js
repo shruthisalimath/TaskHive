@@ -18,7 +18,7 @@ const resolvers = {
         },
 
         project: async (parent, { projectId }) => {
-            return await Projects.findOne({ _id: projectId });
+            return await Projects.findOne({ _id: projectId }).populate("tasks");
         },
 
         tasks: async () => {
@@ -53,11 +53,9 @@ const resolvers = {
                     lastName: args.lastName,
                     email: args.email,
                     password: args.password
-                }
+                },
+                { new: true},
             );
-            // const updatedUser = await Users.findById(
-            //     { _id: args.userId }
-            // );
             
             return saveUser;
         },
@@ -108,18 +106,21 @@ const resolvers = {
                 comment: args.description,
                 status: args.status,
                 dueDate: args.dueDate,
-                project: args.projectId,
-                assignedTo: args.userId
+                projectName: args.project,
+                
             });
+            console.log(newTask._id);
             await newTask.save();
-
-            await Projects.findOneAndUpdate(
-                { _id:  args.projectId },
-                { $push: { Tasks: newTask.taskId } }
+                console.log(args.project);
+           const project = await Projects.findOneAndUpdate(
+                { _id:  args.project },
+                { $push: { tasks: newTask._id } },
+                { new: true }
             );
+            console.log(project);
             await Users.findOneAndUpdate(
                 { _id: args.userId },
-                { $push: { projects: newTask.projectId } }
+                { $push: { projects: newTask.projectName } }
             );
             return newTask;
         },
@@ -139,8 +140,8 @@ const resolvers = {
             );
             await saveTask.save();
                 console.log(saveTask);
-            await Projects.findOneAndUpdate(
-                { _id: args.projectId },
+            const project = await Projects.findOneAndUpdate(
+                { _id: project },
                 { $push: { Tasks: saveTask.taskId } }
             );
                 console.log(saveTask.project);
@@ -152,21 +153,23 @@ const resolvers = {
             return saveTask;
         },
 
-        deleteTask: async (parent, { taskId }) => {
-            const task = await Tasks.findByIdAndDelete ({
-                _id: taskId
-            });
-
-            await Projects.findOneAndUpdate(
-                { _id },
-                { $pull: { Tasks: task.tasktId } }
+        deleteTask: async (parent, { projectId, taskId }) => {
+            const deletedTask = await Tasks.findOneAndUpdate (
+                { _id: projectId },
+                { $pull: { tasks: { _id: taskId}}},
+                { new: true}
             );
 
-            await Users.findOneAndUpdate(
-                { _id: userId },
-                { $pull: { Tasks: task.tasktId } }
-            );
-            return task;
+            //  const project = await Projects.findOneAndUpdate(
+            //      { _id: args. project },
+            //      { $pull: { Tasks: deletedTask._id } }
+            //  );
+
+            //  await Users.findOneAndUpdate(
+            //     { _id: userId },
+            //     { $pull: { Tasks: deletedTask.tasktId } }
+            //  );
+            return deletedTask;
         },
 
         

@@ -11,7 +11,7 @@ const taskSchema = new Schema({
     enum: ['To-Do', 'In Progress', 'Completed'],
   },
   dueDate: Date,
-  project: {
+  projectName: {
     type: Schema.Types.ObjectId,
     ref: 'Projects', 
   },
