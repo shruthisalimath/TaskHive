@@ -19,6 +19,22 @@ export const QUERY_PROJECTS = gql`
     }
 `;
 
+export const QUERY_SINGLE_PROJECT = gql`
+  query singleProject($projectId: ID!) {
+    project(projectId: $projectId) {
+      _id
+      name
+      tasks {
+        _id
+        name
+        comment
+        status
+        dueDate
+      }
+    }
+  }
+`;
+
 export const QUERY_USERS = gql`
     query users {
         users {
