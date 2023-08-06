@@ -33,7 +33,7 @@ const userSchema = new Schema({
     projects: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Projects',
+            ref: 'Project',
         },
     ],
     // tasks: [
@@ -44,6 +44,6 @@ const userSchema = new Schema({
     // ],
 });
 
-const Users = model('Users', userSchema);
+const User = model('User', userSchema);
 
-module.exports = Users;
+module.exports = User;

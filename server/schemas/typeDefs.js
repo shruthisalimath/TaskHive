@@ -8,22 +8,22 @@ type User {
     lastName: String!
     email: String!
     password: String!
-    projects: [Project]
+    projects: [Project]!
     
 }
 
 type Project {
         _id: ID!
-        name: String!
+        name: String
         description: String
         startDate: String
         endDate: String
-        tasks: [Task]
+        tasks: [Task]!
     }
 
     type Task {
         _id: ID!
-        name: String!
+        name: String
         comment: String
         status: String
         dueDate: String
@@ -45,15 +45,15 @@ type Project {
         
         addUser(firstName: String!, lastName: String!, email: String!, password: String!): User
         updateUser(userId: ID!, firstName: String, lastName: String, email: String, password: String): User
-        deleteUser(userId: ID!): User
+        deleteUser(userId: ID!): ID
 
-        addProject(name: String!, description: String, startDate: String, endDate: String): Project
+        addProject(userId: ID!, name: String!, description: String, startDate: String, endDate: String): Project
         updateProject(projectId: ID!, name: String, description: String, startDate: String, endDate: String): Project
-        deleteProject(projectId: ID!): Project
+        deleteProject(projectId: ID!): ID
         
-        addTask(name: String!, comment: String, status: String, dueDate: String, project: ID!): Task
-        updateTask(taskId: ID!, name: String, comment: String, status: String, dueDate: String, project: ID): Task
-        deleteTask(taskId: ID!): Task
+        addTask( projectId: ID!, name: String!, comment: String, status: String, dueDate: String, projectName: ID ): Task
+        updateTask(taskId: ID!, name: String, comment: String, status: String, dueDate: String, projectName: ID): Task
+        deleteTask(taskId: ID!): ID
     }
     `;
 
