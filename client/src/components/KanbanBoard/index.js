@@ -17,7 +17,7 @@ export default function KanbanBoard() {
   const [uItems, setuItems] = useState([]);
 
   const addNewCard = (title) => {
-    setuItems([...uItems, { title }]);
+    setTodoItems([...todoItems, { title }]);
   };
 
   return (
@@ -65,7 +65,6 @@ export default function KanbanBoard() {
           <KanbanLane title="ToDo" items={todoItems} />
           <KanbanLane title="In Progress" items={inProgressItems} />
           <KanbanLane title="Done" items={doneItems} />
-          <KanbanLane title="Unassigned" items={uItems} />
         </div>
       </div>
     </DndContext>
