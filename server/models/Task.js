@@ -5,7 +5,7 @@ const taskSchema = new Schema({
     type: String,
     required: true,
   },
-  comment: String, 
+  comment: String,
   status: {
     type: String,
     enum: ['To-Do', 'In Progress', 'Completed'],
@@ -13,7 +13,7 @@ const taskSchema = new Schema({
   dueDate: Date,
   projectName: {
     type: Schema.Types.ObjectId,
-    ref: 'Projects', 
+    ref: 'Projects',
   },
   // assignedTo: {
   //   type: Schema.Types.ObjectId,

@@ -9,7 +9,7 @@ const projectSchema = new Schema({
     type: String,
     required: false,
   },
-startDate: {
+  startDate: {
     type: Date,
     default: null,
   },
@@ -23,7 +23,7 @@ startDate: {
       ref: 'Task',
     },
   ],
-  
+
   // users: [
   //   {
   //     type: Schema.Types.ObjectId,

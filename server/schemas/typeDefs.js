@@ -57,4 +57,4 @@ type Project {
     }
     `;
 
-    module.exports = typeDefs;
+module.exports = typeDefs;
