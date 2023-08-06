@@ -40,7 +40,6 @@ export default function AddCard({ addCard }) {
       <button
         style={buttonStyle}
         onClick={() => {
-        setTitle("");
         addCard(title);
         }}
       >
