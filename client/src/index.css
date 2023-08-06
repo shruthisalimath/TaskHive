@@ -12,9 +12,24 @@ code {
     monospace;
 }
 
+/* * CSS reset * */
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+}
+
+/* * Global Styles * ---------------------------*/
+
+/* Brand Colors */
 :root {
   --primary-color: #F95B3D;
   --secondary-color: #6B7ACC;
+  --tertiary-color: #BDBBF1;
   --background-dark: #06020E;
   --background-medium: #150730;
   --background-light: #EEE5E9;
@@ -23,6 +38,162 @@ code {
   --danger-color: #dc3545;
 }
 
-#card {
+/* Text Styles */
+
+h1 {
+  color: var(--background-light);
+}
+
+h2 {
+  color: var(--primary-color);
+}
+
+h4 {
+  color: var(--background-light);
+  font-size: .7rem;
+  font-weight: 500;
+  /* margin needs a css reset or the y coords wont work */
+  margin: 16px, 0px, 8px;
+}
+
+/* * Component Styles * -----------------------------*/
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: var(--background-dark);
+  min-height: 10vh;
+  padding: 0 60px;
+}
+
+.nav-bar a {
+  list-style: none;
+  text-decoration: none;
+  color: var(--secondary-color);
+  font-weight: bold;
+  font-size: 1rem;
+  padding-left: 20px;
+}
+
+.nav-bar a:hover {
+  color: var(--primary-color);
+}
+
+/* * Page Styles * ----------------------------------*/
+
+/* Home Page ---------*/
+.homeContent {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--background-medium);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-dark);
+  min-height: 100vh;
+  min-width: 20%;
+  max-width: 20%;
+  padding-left: 16px;
+  padding-top: 20px;
+}
+
+.sidebar-option {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.sidebar-option a {
+  margin-bottom: 24px;
+}
+
+.sidebar li {
+  margin-bottom: 24px;
+  padding-left: 10px;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: -0.25px 0.45px 1px .5px rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  display:flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.card:Hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: -0.25px 0.45px 1px .5px rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--secondary-color);
+  font-weight: bold;
+  font-size: 1.0rem;
+}
+
+.link:hover {
+  color: var(--primary-color);
+}
+
+.dark-link {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight:bold;
+  font-size: 1rem;
+}
+
+/* .dark-link:hover {
+  color: var(--secondary-color);
+} */
+
+.project-area {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-medium);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  width: 75%;
+  height: 100%;
+}
+
+
+/* Project Page -------*/
+
+.task-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
   background-color: var(--background-light);
+  min-height: 75vh;
+}
+
+.task-column {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  min-width: 300px;
+  max-width: 300px;
+  height: 100%;
+}
+
+.task-card {
+  background-color: var(--secondary-color);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  min-width: 300px;
+  max-width: 300px;
+  height: 100%;
 }
