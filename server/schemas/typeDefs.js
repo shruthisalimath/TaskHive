@@ -31,6 +31,11 @@ type Project {
     }
 
     
+    type Auth {
+        token: ID!
+        user: User
+      }
+
     type Query {
         users: [User]
         user(userId: ID!): User
@@ -54,6 +59,8 @@ type Project {
         addTask( projectId: ID!, name: String!, comment: String, status: String, dueDate: String, projectName: ID ): Task
         updateTask(taskId: ID!, name: String, comment: String, status: String, dueDate: String, projectName: ID): Task
         deleteTask(taskId: ID!): ID
+
+        login(email: String!, password: String!): Auth
     }
     `;
 
