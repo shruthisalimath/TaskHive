@@ -49,11 +49,11 @@ function LoginForm() {
   };
 
   return (
-    <div>
+    <div className='login-form'>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email: </label>
           <input
             type="text"
             id="email"
@@ -63,7 +63,7 @@ function LoginForm() {
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password: </label>
           <input
             type="password"
             id="password"
@@ -72,7 +72,7 @@ function LoginForm() {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Login</button>
+        <button classname="loginBtn" type="submit">Login</button>
       </form>
     </div>
   );
