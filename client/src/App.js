@@ -18,6 +18,7 @@ function App() {
           {/* <Home /> */}
           {/* if user is on project page, render project page */}
           <Router>
+            {/* <AuthPage /> */}
             <div className="flex-column justify-flex-start min-100-vh">
               <Routes>
                 <Route 

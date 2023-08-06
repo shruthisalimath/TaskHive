@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { QUERY_PROJECTS } from '../utils/queries';
 import { QUERY_SINGLE_PROJECT } from '../utils/queries';
+import KanbanCard from '../components/KanbanCard';
 
 import {DndContext} from '@dnd-kit/core';
 
@@ -11,6 +12,8 @@ import ProjectList from '../components/ProjectList';
 import Sidebar from '../components/SideBar';
 import DraggableCard from '../components/DraggableCard';
 import DroppableZone from '../components/DroppableZone';
+import KanbanLane from '../components/KanbanLane';
+import KanbanBoard from '../components/KanbanBoard';
 
 
 const Project = () => {
@@ -46,29 +49,10 @@ const Project = () => {
   }
   return (
     <div>
-      <h2 className="card-header">
-        {project.name} is the name of this project.
-      </h2>
+      <KanbanBoard />
 
-      <div className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-        <div className="task-area">
-          {/* <Project projects={projects}/> */}
-          <DndContext onDragEnd={handleDragEnd}>
-            {parent === null ? draggableMarkup : null}
-
-            {containers.map((id) => (
-              // We updated the Droppable component so it would accept an `id`
-              // prop and pass it to `useDroppable`
-              <DroppableZone key={id} id={id}>
-                {parent === id ? 
-                  draggableMarkup : id}
-              </DroppableZone>
-            ))}
-    </DndContext>
-          </div>
       </div>
 
-    </div>
   );
 };
 
