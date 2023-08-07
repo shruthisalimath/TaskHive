@@ -43,12 +43,13 @@ type Project {
         project(projectId: ID!): Project
         tasks: [Task]
         task(taskId: ID!): Task
+        me: User!
         
     }
 
     type Mutation {
         
-        addUser(firstName: String!, lastName: String!, email: String!, password: String!): User
+        addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
         updateUser(userId: ID!, firstName: String, lastName: String, email: String, password: String): User
         deleteUser(userId: ID!): ID
 
