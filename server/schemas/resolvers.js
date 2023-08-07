@@ -72,42 +72,26 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
 
+        //Setting up mutation so a logged in user can only remove their user profile and no one else's
         deleteUser: async (parent, { userId }, context) => {
             if (context.user) {
-                return await User.findOneAndDelete(
-                    { _id: userId }
-                );
-                //return userId;
+              const deletedUser = await User.findOneAndDelete({ _id: userId });
+              if (!deletedUser) {
+                throw new UserInputError("User not found");
+              }
+      
+              // Delete projects associated with the deleted user
+              await Project.deleteMany({ _id: { $in: deletedUser.projects } });
+      
+              // Delete tasks associated with the deleted user's projects
+              await Task.deleteMany({ projectName: { $in: deletedUser.projects } });
+      
+              return userId;
             }
             throw new AuthenticationError('You need to be logged in!');
-        },
+          },
 
-        // Setting up mutation so a logged in user can only remove their user profile and no one else's
-        // deleteUser: async (parent, { userId }, context) => {
-        //     if (context.user) {
-        //         const deletedUser = await User.findOneAndDelete( 
-        //             { _id: userId }   
-        //         );            
-        //         if (!deletedUser) {
-        //             throw new UserInputError("User not found");
-        //         }
-        //         //Remove the User from Assosiated Projects
-        //         //updateMany is used when need to update multiple documents that match a query
-        //         await Project.updateMany(
-        //             { users: userId },
-        //             { $pull: { users: userId } },
-        //             //{ multi: true} //add this option to update multiple documents
-        //         );
-        //         //Remove Users freference from assosiated tasks
-        //         await Task.updateMany(
-        //             { projectName: { $in: deletedUser.projects } },
-        //             { $unset: { projectName: 1 } }
-        //         );
-        //         return userId;
-        //     }
-        //     throw new AuthenticationError('You need to be logged in!');
-        // },
-
+        //Login
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
@@ -154,37 +138,24 @@ const resolvers = {
 
         deleteProject: async (parent, { projectId }, context) => {
             if (context.user) {
-                return await Project.findOneAndDelete(
-                    { _id: projectId }
-                );
-                //return projectId;
+            const deletedProject = await Project.findOneAndDelete({ _id: projectId });
+            if (!deletedProject) {
+            throw new UserInputError(`Project not found`);
+            }
+            
+            // Remove the project's reference from associated users
+            await User.updateMany(
+            { projects: projectId },
+            { $pull: { projects: projectId } }
+            );
+            
+            // Delete tasks associated with the deleted project
+            await Task.deleteMany({ projectName: projectId });
+            
+            return projectId;
             }
             throw new AuthenticationError('You need to be logged in!');
-        },
-
-        // deleteProject: async (parent, { projectId }, context) => {
-        //     if (context.user) {
-        //         //Find and delete the project
-        //         const deletedProject =  await Project.findOneAndDelete(
-        //             { _id: projectId }
-        //         );
-        //         if (!deletedProject) {
-        //             throw new UserInputError("Project not found");
-        //         }
-        //         //Remove the projects reference from assosiated users
-        //         await User.updateMany(
-        //             { projects: projectId },
-        //             { $pull: { projects: projectId } }
-        //         );
-        //         //Remove the projects reference from assosiated tasks
-        //         await Task.updateMany(
-        //             { projectName: projectId },
-        //             { $unset: { projectName: 1 } }
-        //         );
-        //         return projectId;
-        //     }
-        //     throw new AuthenticationError('You need to be logged in!');
-        // },
+            },
 
         //Tasks
         // Add a third argument to the resolver to access data in our `context`
@@ -229,32 +200,21 @@ const resolvers = {
 
         deleteTask: async (parent, { taskId }, context) => {
             if (context.user) {
-                return await Task.findOneAndDelete(
-                    { _id: taskId }
-                );
-                //return taskId;
+            const deletedTask = await Task.findOneAndDelete({ _id: taskId });
+            if (!deletedTask) {
+            throw new UserInputError(`Task not found`);
+            }
+            
+            // Remove the task's reference from associated projects
+            await Project.updateMany(
+            { tasks: taskId },
+            { $pull: { tasks: taskId } }
+            );
+            
+            return taskId;
             }
             throw new AuthenticationError('You need to be logged in!');
-        }
-
-        // deleteTask: async (parent, { taskId }, context) => {
-        //     if (context.user) {
-        //             //Find and delete the task
-        //             const deletedTask =  await Task.findOneAndDelete(
-        //                 { _id: taskId }
-        //             );
-        //             if (!deletedTask) {
-        //                 throw new UserInputError("Task not found");
-        //             }
-        //             //Remove the tasks reference from assosiated projects
-        //             await Project.updateMany(
-        //                 { tasks: taskId },
-        //                 { $pull: { tasks: taskId } }
-        //             );
-        //         return taskId;
-        //     }
-        //     throw new AuthenticationError('You need to be logged in!');
-        // }
+            },
     }
 }
 
