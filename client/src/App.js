@@ -15,10 +15,11 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+          <AuthPage />
           {/* <Home /> */}
           {/* if user is on project page, render project page */}
-          <Router>
-            {/* <AuthPage /> */}
+          {/* <Router>
+            <AuthPage />
             <div className="flex-column justify-flex-start min-100-vh">
               <Routes>
                 <Route 
@@ -31,7 +32,7 @@ function App() {
                 />
               </Routes>
             </div>
-          </Router>
+          </Router> */}
     </ApolloProvider>
   );
 }

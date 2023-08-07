@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../../utils/mutations';
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -9,6 +11,7 @@ function SignUp() {
     confirmPassword: '',
   });
 
+  const [addUser, { loading, error, data }] = useMutation(ADD_USER);
   const [formErrors, setFormErrors] = useState({});
 
   const handleChange = (e) => {
@@ -16,13 +19,19 @@ function SignUp() {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validateForm(formData);
 
     if (Object.keys(errors).length === 0) {
-      // Handle form submission here i.e. send data to server and validate password.
-      console.log('Form submitted:', formData);
+      try {
+        const { data } = await addUser({
+          variables: { ...formData },
+          });
+          console.log('User created:', data.addUser);
+        } catch (error) {
+          console.error('error adding user:', error);
+        }
     } else {
       // Throw an alert with each error message
       Object.values(errors).forEach((error) => alert(error));
@@ -68,7 +77,10 @@ function SignUp() {
   return (
     <div className='login-form'>
       <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
+      {data?.addUser ? (
+        <p>Registration successful!</p>
+      ) : (
+        <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="firstName">First Name:</label>
           <input
@@ -119,8 +131,12 @@ function SignUp() {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Sign Up</button>
-      </form>
+        <button type="submit" disabled={loading}>
+            {loading ? 'Signing Up...' : 'Sign Up'}
+          </button>
+          {error && <p>Error: {error.message}</p>}
+        </form>
+      )}
     </div>
   );
 }
