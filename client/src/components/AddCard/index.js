@@ -41,6 +41,7 @@ export default function AddCard({ addCard }) {
         style={buttonStyle}
         onClick={() => {
         addCard(title);
+        setTitle("");
         }}
       >
         Add Card
