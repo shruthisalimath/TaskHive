@@ -32,7 +32,7 @@ function SignUp() {
           });
           const { token } = data.addUser;
           console.log('User created:', data.addUser);
-          localStorage.setItem('token', token);
+          localStorage.setItem('token', `Bearer ${token}`);
           navigate('/home');
         } catch (error) {
           console.error('error adding user:', error);
