@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../../utils/mutations';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ function SignUp() {
     confirmPassword: '',
   });
 
+  const navigate = useNavigate();
   const [addUser, { loading, error, data }] = useMutation(ADD_USER);
   const [formErrors, setFormErrors] = useState({});
 
@@ -28,7 +30,10 @@ function SignUp() {
         const { data } = await addUser({
           variables: { ...formData },
           });
+          const { token } = data.addUser;
           console.log('User created:', data.addUser);
+          localStorage.setItem('token', token);
+          navigate('/home');
         } catch (error) {
           console.error('error adding user:', error);
         }

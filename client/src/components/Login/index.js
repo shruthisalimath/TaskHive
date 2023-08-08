@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -8,6 +9,7 @@ function LoginForm() {
     password: '',
   });
 
+  const navigate = useNavigate();
   const [loginUser, { loading, error, data }] = useMutation(LOGIN_USER);
 
   const handleChange = (e) => {
@@ -26,7 +28,8 @@ function LoginForm() {
         });
         const {token, user} = result.data.login;
         console.log('Login successful. Token:', token);
-        console.log('User:', user);
+        localStorage.setItem('token', token);
+        navigate('/home');
         // TODO: Save the token to localStorage or a state to manage authentication.
       } catch (error) {
         console.error('error logging in user:', error);
