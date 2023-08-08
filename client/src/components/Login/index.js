@@ -28,7 +28,7 @@ function LoginForm() {
         });
         const {token, user} = result.data.login;
         console.log('Login successful. Token:', token);
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', `Bearer ${token}`);
         navigate('/home');
         // TODO: Save the token to localStorage or a state to manage authentication.
       } catch (error) {

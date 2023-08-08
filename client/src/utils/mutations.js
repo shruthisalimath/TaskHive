@@ -112,10 +112,9 @@ export const ADD_TASK = gql`
   mutation addTask(
     $name: String!,
     $comment: String,
-    $status: String!,
+    $status: String,
     $dueDate: String,
     $projectId: ID!,
-    $assignedTo: ID
   ) {
     addTask(
       name: $name,
@@ -123,22 +122,13 @@ export const ADD_TASK = gql`
       status: $status,
       dueDate: $dueDate,
       projectId: $projectId,
-      assignedTo: $assignedTo
     ) {
       _id
       name
       comment
       status
       dueDate
-      project {
-        _id
-        name
-      }
-      assignedTo {
-        _id
-        firstName
-        lastName
-      }
+      projectId
     }
   }
 `;
