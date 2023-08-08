@@ -60,6 +60,15 @@ h4 {
 .nav-bar {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-dark);
+  min-height: 10vh;
+}
+
+.nav-bar .links{
+  display: flex;
+  flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   background-color: var(--background-dark);
@@ -201,7 +210,7 @@ h4 {
 .login-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   background-color: var(--background-medium);
   border-radius: 5px;
   padding: 20px;
@@ -211,19 +220,33 @@ h4 {
 }
 
 /* Make the labels and inputs fill the container width */
-.login-form label,
-.login-form input {
+/* .login-form input {
   width: 100%;
-}
+} */
 
 .loginBtn {
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 10px;
   margin: 10px;
-  width: 100%;
-  height: 25%;
-  max-width: 200px;
-  margin-top: 10px;
+  height: 48px;
+  background-color: var(--primary-color);
+  color: var(--background-medium);
+  font-weight: bold;
+  border: 1px solid var(--primary-color);
+  width: 89%;
+}
+
+.loginBtn:hover {
+  outline: none;
+  border:none;
+  background-color: var(--secondary-color);
+  cursor: pointer;
+}
+
+/* selector for login button press */
+.loginBtn:active {
+  background-color: var(--primary-color);
+  box-shadow: 0 1px white;
 }
 
 .auth-page {
@@ -234,6 +257,36 @@ h4 {
   border-radius: 5px;
   padding: 20px;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   color: var(--secondary-color);
+}
+
+.login-input {
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  height: 32px;
+  width: 80%;
+  background-color: var(--background-medium);
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.login-input::placeholder {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.login-input:focus {
+  outline: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  border: 2px solid var(--primary-color);
+}
+
+.logo {
+  height: 100px;
+  width: 250px;
+  margin-left: 24px;
 }
