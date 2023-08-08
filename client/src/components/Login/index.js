@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../../utils/mutations';
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -6,22 +8,30 @@ function LoginForm() {
     password: '',
   });
 
-  const [formErrors, setFormErrors] = useState({});
+  const [loginUser, { loading, error, data }] = useMutation(LOGIN_USER);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validateForm(formData);
 
     if (Object.keys(errors).length === 0) {
-      // Handle login submission here i.e. send data to server for authentication.
-      console.log('Login submitted:', formData);
+      try {
+        const result = await loginUser({
+          variables: { ...formData },
+        });
+        const {token, user} = result.data.login;
+        console.log('Login successful. Token:', token);
+        console.log('User:', user);
+        // TODO: Save the token to localStorage or a state to manage authentication.
+      } catch (error) {
+        console.error('error logging in user:', error);
+      }
     } else {
-      // Throw an alert with each error message
       Object.values(errors).forEach((error) => alert(error));
       return;
     }
@@ -72,7 +82,10 @@ function LoginForm() {
             onChange={handleChange}
           />
         </div>
-        <button classname="loginBtn" type="submit">Login</button>
+        <button className="loginBtn" type="submit" disabled={loading}>
+        {loading ? 'Logging In...' : 'Login'}
+        </button>
+        {error && <p>Error: {error.message}</p>}
       </form>
     </div>
   );
