@@ -66,21 +66,25 @@ function LoginForm() {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">Email: </label>
+          {/* <label htmlFor="email">Email: </label> */}
           <input
             type="text"
             id="email"
             name="email"
+            className="login-input"
+            placeholder="Email"
             value={formData.email}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label htmlFor="password">Password: </label>
+          {/* <label htmlFor="password">Password: </label> */}
           <input
             type="password"
             id="password"
             name="password"
+            className="login-input"
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
           />
