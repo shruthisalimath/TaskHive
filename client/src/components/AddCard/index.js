@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import dayjs from "dayjs";
 import { useMutation } from "@apollo/client";
 import { ADD_TASK } from "../../utils/mutations";
 import { useParams } from "react-router-dom";
@@ -15,13 +16,14 @@ export default function AddTask() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const parsedDueDate = dayjs(dueDate).format("MM/DD/YYYY");
       const { data } = await addTask({
         variables: {
           projectId: projectId,
           name: name,
           comment: comment,
           status: status,
-          dueDate: dueDate,
+          dueDate: parsedDueDate,
         },
       });
 
@@ -76,7 +78,11 @@ export default function AddTask() {
             id="dueDate"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
+            placeholder="MM/DD/YYYY"
           />
+          {dueDate && (
+            <p>Formatted Due Date: {dayjs(dueDate).format("MM/DD/YYYY")}</p>
+          )}
         </div>
         <button type="submit" disabled={loading}>
           {loading ? "Adding Task..." : "Add Task"}
