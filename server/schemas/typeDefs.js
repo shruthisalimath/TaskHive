@@ -28,6 +28,7 @@ type Project {
         status: String
         dueDate: String
         projectName: Project
+        projectId: ID!
     }
 
     
@@ -57,7 +58,7 @@ type Project {
         updateProject(projectId: ID!, name: String, description: String, startDate: String, endDate: String): Project
         deleteProject(projectId: ID!): ID
         
-        addTask( projectId: ID!, name: String!, comment: String, status: String, dueDate: String, projectName: ID ): Task
+        addTask( projectId: ID!, name: String!, comment: String, status: String, dueDate: String,): Task
         updateTask(taskId: ID!, name: String, comment: String, status: String, dueDate: String, projectName: ID): Task
         deleteTask(taskId: ID!): ID
 

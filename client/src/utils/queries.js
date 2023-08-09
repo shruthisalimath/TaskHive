@@ -76,12 +76,6 @@ export const QUERY_TASKS = gql`
                 startDate
                 endDate
             }
-            assignedTo {
-                _id
-                firstName
-                lastName
-                email
-            }
         }
     }
 `;

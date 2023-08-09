@@ -167,6 +167,7 @@ const resolvers = {
                     { _id: args.projectId },
                     { $push: { tasks: task._id } },
                 );
+                task.projectId = args.projectId;
                 return task;
             }
             throw new AuthenticationError('You need to be logged in!');

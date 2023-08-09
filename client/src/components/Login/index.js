@@ -28,7 +28,7 @@ function LoginForm() {
         });
         const {token, user} = result.data.login;
         console.log('Login successful. Token:', token);
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', `Bearer ${token}`);
         navigate('/home');
         // TODO: Save the token to localStorage or a state to manage authentication.
       } catch (error) {
@@ -66,21 +66,25 @@ function LoginForm() {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">Email: </label>
+          {/* <label htmlFor="email">Email: </label> */}
           <input
             type="text"
             id="email"
             name="email"
+            className="login-input"
+            placeholder="Email"
             value={formData.email}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label htmlFor="password">Password: </label>
+          {/* <label htmlFor="password">Password: </label> */}
           <input
             type="password"
             id="password"
             name="password"
+            className="login-input"
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
           />

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../../utils/mutations';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/TaskHiveLogo.svg';
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ function SignUp() {
           });
           const { token } = data.addUser;
           console.log('User created:', data.addUser);
-          localStorage.setItem('token', token);
+          localStorage.setItem('token', `Bearer ${token}`);
           navigate('/home');
         } catch (error) {
           console.error('error adding user:', error);
@@ -87,58 +88,65 @@ function SignUp() {
       ) : (
         <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="firstName">First Name:</label>
+          
           <input
+            placeholder="First Name"
             type="text"
             id="firstName"
             name="firstName"
+            className="login-input"
             value={formData.firstName}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label htmlFor="lastName">Last Name:</label>
           <input
+            placeholder="Last Name"
             type="text"
             id="lastName"
             name="lastName"
+            className="login-input"
             value={formData.lastName}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label htmlFor="email">Email:</label>
           <input
+            placeholder="Email"
             type="text"
             id="email"
             name="email"
+            className="login-input"
             value={formData.email}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
           <input
+            placeholder="Password"
             type="password"
             id="password"
             name="password"
+            className="login-input"
             value={formData.password}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label htmlFor="confirmPassword">Confirm Password:</label>
+          
           <input
+            placeholder="Confirm Password"
             type="password"
             id="confirmPassword"
             name="confirmPassword"
+            className="login-input"
             value={formData.confirmPassword}
             onChange={handleChange}
           />
-        </div>
-        <button type="submit" disabled={loading}>
+          <button className="loginBtn" type="submit" disabled={loading}>
             {loading ? 'Signing Up...' : 'Sign Up'}
           </button>
+        </div>
           {error && <p>Error: {error.message}</p>}
         </form>
       )}

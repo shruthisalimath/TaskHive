@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { useNavigate } from "react-router-dom";
+import logo from '../../assets/TaskHiveLogo.svg';
+
 
 function NavBar() {
   function logout() {
@@ -13,10 +15,13 @@ function NavBar() {
 
   return (
     <div className="nav-bar">
-      <Link to="/home">Profile</Link>
-      <Link to="/" onClick={logout}>
-        Logout
-      </Link>
+      <img className='logo' src={logo} alt='TaskHive Logo'/>
+      <div className="links">
+        <Link to="/home">Profile</Link>
+        <Link to="/" onClick={logout}>
+          Logout
+        </Link>
+      </div>
     </div>
   );
 }

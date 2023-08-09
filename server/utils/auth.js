@@ -5,6 +5,7 @@ const expiration = '2h';
 
 module.exports = {
   authMiddleware: function ({ req }) {
+    console.log('AuthMiddleware Executed')
     let token = req.body.token || req.query.token || req.headers.authorization;
 
     if (req.headers.authorization) {
@@ -18,6 +19,7 @@ module.exports = {
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
+
     } catch (error) {
       console.log('Invalid token');
     }
