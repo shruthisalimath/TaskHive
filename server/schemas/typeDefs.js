@@ -65,7 +65,7 @@ type Project {
         deleteProject(projectId: ID!): ID
        
         addTask( projectId: ID!, name: String!, comment: String, status: String, dueDate: String,): Task
-        updateTask(taskId: ID!, name: String, comment: String, status: String, dueDate: String, projectName: ID): Task
+        updateTask(taskId: ID!, name: String, comment: String, status: String, dueDate: String, projectId: ID): Task
         deleteTask(taskId: ID!): ID
 
 
