@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
-
+import { useNavigate } from 'react-router-dom';
+import Auth from '../../utils/auth';
 function LoginForm() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
+  const navigate = useNavigate();
   const [loginUser, { loading, error, data }] = useMutation(LOGIN_USER);
 
   const handleChange = (e) => {
@@ -24,10 +26,12 @@ function LoginForm() {
         const result = await loginUser({
           variables: { ...formData },
         });
-        const {token, user} = result.data.login;
+        const token = result.data.login;
         console.log('Login successful. Token:', token);
-        console.log('User:', user);
-        // TODO: Save the token to localStorage or a state to manage authentication.
+        //localStorage.setItem('token', `Bearer ${token}`);
+        Auth.login(token);
+        navigate('/home');
+       
       } catch (error) {
         console.error('error logging in user:', error);
       }
@@ -63,21 +67,25 @@ function LoginForm() {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">Email: </label>
+          {/* <label htmlFor="email">Email: </label> */}
           <input
             type="text"
             id="email"
             name="email"
+            className="login-input"
+            placeholder="Email"
             value={formData.email}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label htmlFor="password">Password: </label>
+          {/* <label htmlFor="password">Password: </label> */}
           <input
             type="password"
             id="password"
             name="password"
+            className="login-input"
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
           />

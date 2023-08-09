@@ -14,7 +14,6 @@ export default function KanbanBoard() {
   const [todoItems, setTodoItems] = useState([]);
   const [doneItems, setDoneItems] = useState([]);
   const [inProgressItems, setInProgressItems] = useState([]);
-  const [uItems, setuItems] = useState([]);
 
   const addNewCard = (title) => {
     setTodoItems([...todoItems, { title }]);
@@ -33,8 +32,6 @@ export default function KanbanBoard() {
           setTodoItems([...todoItems, { title }]);
         } else if (container === "Done") {
           setDoneItems([...doneItems, { title }]);
-        } else if (container === "Unassigned") {
-          setuItems([...uItems, { title }]);
         } else {
           setInProgressItems([...inProgressItems, { title }]);
         }
@@ -49,8 +46,6 @@ export default function KanbanBoard() {
             ...doneItems.slice(0, index),
             ...doneItems.slice(index + 1),
           ]);
-        } else if (parent === "Unassigned") {
-          setuItems([...uItems.slice(0, index), ...uItems.slice(index + 1)]);
         } else {
           setInProgressItems([
             ...inProgressItems.slice(0, index),

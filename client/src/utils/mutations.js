@@ -29,29 +29,13 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_PROJECT = gql`
-  mutation addProject($name: String!, $description: String!, $tasks: [ID], $users: [ID]) {
-    addProject(
-      name: $name
-      description: $description
-      tasks: $tasks
-      users: $users
-    ) {
-      _id
-      name 
-      description 
-      startDate
-      endDate
-      tasks {
-        _id
-        name
-      }
-      users {
-        _id
-        firstName
-        lastName
-      }
-    }
+mutation addProject($userId: ID!, $name: String!) {
+  addProject(userId: $userId, name: $name) {
+    _id
+    name
   }
+}
+
 `;
 
 export const REMOVE_PROJECT = gql`
@@ -112,10 +96,9 @@ export const ADD_TASK = gql`
   mutation addTask(
     $name: String!,
     $comment: String,
-    $status: String!,
+    $status: String,
     $dueDate: String,
     $projectId: ID!,
-    $assignedTo: ID
   ) {
     addTask(
       name: $name,
@@ -123,22 +106,13 @@ export const ADD_TASK = gql`
       status: $status,
       dueDate: $dueDate,
       projectId: $projectId,
-      assignedTo: $assignedTo
     ) {
       _id
       name
       comment
       status
       dueDate
-      project {
-        _id
-        name
-      }
-      assignedTo {
-        _id
-        firstName
-        lastName
-      }
+      projectId
     }
   }
 `;

@@ -76,24 +76,17 @@ export const QUERY_TASKS = gql`
                 startDate
                 endDate
             }
-            assignedTo {
-                _id
-                firstName
-                lastName
-                email
-            }
         }
     }
 
 `;
 
 export const QUERY_ME = gql `
-{
-    me{
+query Me{
+    me {
         _id
+        firstName
+        lastName
+        email
     }
-}
-
-
-
-`
+}`;

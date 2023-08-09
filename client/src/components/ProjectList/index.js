@@ -12,18 +12,20 @@ const ProjectList = ({ projects }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { loading1, data1 } = useQuery(QUERY_ME);
-  const user = data1?.me
+  
+  
   if (!loading1){
+    const user = data1;
     console.log(user, "CheckUserData");
   }
 
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
   const [formState, setformState] = useState({ name: "", description: ""})
-  const [projectData, setprojectData] = useState({
-    name: "",
-    description: "",
-});
+//   const [projectData, setprojectData] = useState({
+//     name: "",
+//     description: "",
+// });
 
 const [addProject, { loading, error, data }] = useMutation(ADD_PROJECT);
 const [formErrors, setFormErrors] = useState({});
@@ -44,7 +46,7 @@ const handleSubmit = async (e) => {
     //if (Object.keys(errors).length === 0) {
         try {
             const { data } = await addProject({
-                variables: { name: formState.name, description: formState.description },
+                variables: { name: formState.name, description: formState.description,  },
             });
             console.log('Project created:', data.addProject);
         } catch (error) {
@@ -80,9 +82,9 @@ const validateProjectForm = (data) => {
     <div>
       <>
       <Button onClick={onOpen}>Add Project</Button>
-      <Button ml={4} ref={finalRef}>
+      {/* <Button ml={4} ref={finalRef}>
         I'll receive focus on close
-      </Button>
+      </Button> */}
 
       <Modal
         initialFocusRef={initialRef}

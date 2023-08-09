@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { ChakraProvider } from '@chakra-ui/react';
 import './index.css'
-import { ChakraProvider } from '@chakra-ui/react'
 
 import Home from './pages/Home';
 import Project from './pages/Project';
 import AuthPage from './pages/AuthPage';
-import AddProject from "./components/AddProject/index"
+
+// Create an Apollo Client instance with JWT authentication headers
+const authLink = setContext((_, { headers }) => {
+  // Get the token from localStorage or your preferred storage mechanism
+  const token = localStorage.getItem('token');
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -19,28 +36,21 @@ function App() {
     
     <ApolloProvider client={client}>
       <ChakraProvider>
-          {/* <Home /> */}
-          {/* if user is on project page, render project page */}
-          <Router>
-            {/* <AuthPage /> */}
-            <div className="flex-column justify-flex-start min-100-vh">
-              <Routes>
-                <Route 
-                  path="/" 
-                  element={<Home />} 
-                />
-                <Route 
-                  path="/projects/:projectId" 
-                  element={<Project />} 
-                />
+      <Router>
+        <div className="flex-column justify-flex-start min-100-vh">
+          <Routes>
+            <Route path='/' element={ <AuthPage />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/projects/:projectId" element={<Project />} />
+            Add more routes as needed
                 {/* <Route 
                   path="/addProject" 
                   element={<AddProject />} 
                 /> */}
-              </Routes>
+          </Routes>
               
-            </div>
-          </Router>
+        </div>
+      </Router>
           </ChakraProvider>
     </ApolloProvider>
     

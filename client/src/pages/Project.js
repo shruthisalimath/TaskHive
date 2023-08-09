@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { QUERY_PROJECTS } from '../utils/queries';
 import { QUERY_SINGLE_PROJECT } from '../utils/queries';
 import KanbanCard from '../components/KanbanCard';
+import TaskBoard from '../components/TaskBoard';
 
 import {DndContext} from '@dnd-kit/core';
 
@@ -12,8 +13,7 @@ import ProjectList from '../components/ProjectList';
 import Sidebar from '../components/SideBar';
 import DraggableCard from '../components/DraggableCard';
 import DroppableZone from '../components/DroppableZone';
-import KanbanLane from '../components/KanbanLane';
-import KanbanBoard from '../components/KanbanBoard';
+
 
 
 const Project = () => {
@@ -49,7 +49,7 @@ const Project = () => {
   }
   return (
     <div>
-      <KanbanBoard />
+      <TaskBoard />
 
       </div>
 
