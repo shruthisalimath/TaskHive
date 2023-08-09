@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const dateFormat = require("../utils/dateFormat");
 
 const projectSchema = new Schema({
   name: {
@@ -11,7 +12,8 @@ const projectSchema = new Schema({
   },
   startDate: {
     type: Date,
-    default: null,
+    default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
   },
   endDate: {
     type: Date,
