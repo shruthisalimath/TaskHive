@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+
 export const QUERY_PROJECTS = gql`
     query projects {
         projects {
@@ -19,6 +20,7 @@ export const QUERY_PROJECTS = gql`
     }
 `;
 
+
 export const QUERY_SINGLE_PROJECT = gql`
   query singleProject($projectId: ID!) {
     project(projectId: $projectId) {
@@ -30,10 +32,12 @@ export const QUERY_SINGLE_PROJECT = gql`
         comment
         status
         dueDate
+        projectId
       }
     }
   }
 `;
+
 
 export const QUERY_USERS = gql`
     query users {
@@ -54,12 +58,13 @@ export const QUERY_USERS = gql`
                     comment
                     status
                     dueDate
-                    projectName
+                   
                 }
             }
         }
     }
 `;
+
 
 export const QUERY_TASKS = gql`
     query tasks {
@@ -79,7 +84,9 @@ export const QUERY_TASKS = gql`
         }
     }
 
+
 `;
+
 
 export const QUERY_ME = gql `
 query Me{
