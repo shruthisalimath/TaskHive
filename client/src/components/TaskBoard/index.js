@@ -1,3 +1,4 @@
+// import dependencies
 import React, { useState, useEffect } from "react";
 import { DndContext, rectIntersection, useSensor, useSensors, PointerSensor } from "@dnd-kit/core";
 import TaskLane from "../TaskLane";
@@ -7,17 +8,21 @@ import { QUERY_SINGLE_PROJECT } from "../../utils/queries";
 import { UPDATE_TASK } from "../../utils/mutations";
 import { useParams } from "react-router-dom";
 
+// styling
 const flexContainerStyle = {
   display: "flex",
   flexDirection: "column",
 };
 
 export default function TaskBoard() {
+  // pass projectId from url to query
   const { projectId } = useParams();
+  // set up query to get project data
   const { loading, error, data } = useQuery(QUERY_SINGLE_PROJECT, {
     variables: { projectId },
   });
 
+  // add constraignt to pointer sensor to prevent accidental drags
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -25,11 +30,11 @@ export default function TaskBoard() {
       },
     })
   );
-
+  //  set up mutation and state for tasks
   const [updateTask] = useMutation(UPDATE_TASK);
-
   const [tasks, setTasks] = useState([]);
 
+  // set tasks to state when data loads
   useEffect(() => {
     if (data) {
       setTasks(data.project.tasks);
@@ -39,6 +44,7 @@ export default function TaskBoard() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  // function to add a new task to the database
   const handleAddTask = async (newTask) => {
     try {
       const { data: addTaskData } = await addTask({
@@ -54,6 +60,7 @@ export default function TaskBoard() {
     }
   };
 
+  // function to update task status when dropped into a new lane
   const handleTaskDrop = async (taskId, newStatus) => {
     try {
       await updateTask({
@@ -73,6 +80,7 @@ export default function TaskBoard() {
     }
   };
 
+  // return statement renders the page
   return (
     <DndContext sensors={sensors} collisionDetection={rectIntersection}>
       <div style={flexContainerStyle}>
