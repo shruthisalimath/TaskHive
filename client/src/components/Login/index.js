@@ -26,10 +26,10 @@ function LoginForm() {
         const result = await loginUser({
           variables: { ...formData },
         });
-        const token = result.data.login;
+        const { token, user } = result.data.login;
         console.log('Login successful. Token:', token);
-        //localStorage.setItem('token', `Bearer ${token}`);
-        Auth.login(token);
+        localStorage.setItem('token', `Bearer ${token}`);
+        //Auth.login(token);
         navigate('/home');
        
       } catch (error) {

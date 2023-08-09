@@ -29,13 +29,22 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_PROJECT = gql`
-mutation addProject($userId: ID!, $name: String!) {
-  addProject(userId: $userId, name: $name) {
-    _id
-    name
+  mutation addProject($userId: ID!, $projectName: String!, $projectDescription: String!, $startDate: String, $endDate: String) {
+    addProject(
+      userId: $userId
+      name: $projectName
+      description: $projectDescription
+      startDate: $startDate
+      endDate: $endDate
+    ) {
+      _id
+      name
+      description
+      startDate
+      endDate
+     
+    }
   }
-}
-
 `;
 
 export const REMOVE_PROJECT = gql`

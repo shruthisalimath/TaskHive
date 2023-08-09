@@ -2,90 +2,87 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IconButton, Box, Flex, Spacer } from '@chakra-ui/react'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
-import AddProject from "../AddProject/index";
+// import AddProject from "../AddProject/index";
 import { Button, FormControl, FormLabel, Input, Textarea, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react';
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_PROJECT } from "../../utils/mutations";
 import { QUERY_ME } from "../../utils/queries";
 
+
 const ProjectList = ({ projects }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const { loading1, data1 } = useQuery(QUERY_ME);
-  
-  
-  if (!loading1){
-    const user = data1;
+  const { loading: loading1, data: data1, error: error1 } = useQuery(QUERY_ME);
+  if (error1) {
+    console.error('Error fetching me:', error1);
+  }
+
+  let user = null;
+  if (!loading1 && data1 && data1.me) {
+    user = data1.me;
     console.log(user, "CheckUserData");
   }
 
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
   const [formState, setformState] = useState({ name: "", description: ""})
-//   const [projectData, setprojectData] = useState({
-//     name: "",
-//     description: "",
-// });
 
 const [addProject, { loading, error, data }] = useMutation(ADD_PROJECT);
 const [formErrors, setFormErrors] = useState({});
 
 const handleChange = (e) => {
-    const { name, value } = e.target;
-    setformState({
-      ...formState, 
-      [name]:value,
-    });
-    console.log(formState, "here");
-   // setprojectData((prevProjectData) => ({ ...prevProjectData, [name]: value }));
+  const { name, value } = e.target;
+  setformState((prevFormState) => ({
+      ...prevFormState,
+      [name]: value,
+  }));
+  console.log(formState,"formstate"); // Log the formState here
 };
 const handleSubmit = async (e) => {
-   // e.preventDefault();
-    //const errors = validateProjectForm(projectData);
-
-    //if (Object.keys(errors).length === 0) {
-        try {
-            const { data } = await addProject({
-                variables: { name: formState.name, description: formState.description,  },
-            });
-            console.log('Project created:', data.addProject);
-        } catch (error) {
-            console.error('error adding Project:', error);
-        }
-    //} else {
-        // Throw an alert with each error message
-        //Object.values(errors).forEach((error) => alert(error));
-       // return;
-    //}
+  e.preventDefault();
+console.log("onsubmit")
+  const errors = validateProjectForm(formState);
+console.log(typeof(user._id),"user ID ----")
+  
+      try {
+        //console.log("we are trying")
+          const { data } = await addProject({
+              variables: {
+                  projectName: formState.projectName,
+                  projectDescription: formState.projectDescription,
+                  userId: user._id,
+              },
+          });
+          console.log('Project created:', data.addProject);
+      } catch (error) {
+          console.error('Error adding Project:', error);
+      }
+  
 };
 const validateProjectForm = (data) => {
     const errors = {};
-
     if (!data.name.trim()) {
         errors.name = 'Project name is required';
     }
-
     if (!data.description.trim()) {
         errors.description = 'project Description is required';
     }
     return errors;
 };
-
-
   console.log(projects);
   if (projects.length <= 0) {
     return <h3>No Projects Yet</h3>;
   }
-
   return (
-
     <div>
-      <>
-      <Button onClick={onOpen}>Add Project</Button>
-      {/* <Button ml={4} ref={finalRef}>
-        I'll receive focus on close
-      </Button> */}
+      <div className="flex-row justify-space-between my-4">
+      <Flex minWidth='max-content' alignItems='center' gap='64%'>
+      
+        <h2>Your Projects</h2>
 
+        <>
+      <Button onClick={onOpen} colorScheme='yellow'>Add Project</Button>
+      
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
@@ -101,14 +98,12 @@ const validateProjectForm = (data) => {
               <FormLabel>Project name</FormLabel>
               <Input name="projectName"  onChange={handleChange} ref={initialRef} placeholder='Enter Project name' />
             </FormControl>
-
             <FormControl mt={4}>
               <FormLabel>Project Description</FormLabel>
               {/* <Input placeholder='Last name' /> */}
               <Textarea name="projectDescription"  onChange={handleChange} placeholder="Enter Your Project Description" /> 
             </FormControl>
           </ModalBody>
-
           <ModalFooter>
             <Button onClick={handleSubmit} colorScheme='blue' mr={3}>
               Save
@@ -117,21 +112,13 @@ const validateProjectForm = (data) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
-      <div className="flex-row justify-space-between my-4">
-      <Flex minWidth='max-content' alignItems='center' gap='75%'>
-      
-        <h2>Your Projects</h2>
-      
-      {/* <AddProject as ={ Link } to="/addProject" /> */}
-      
-        {/* <Link className='link new-project' to="/addProject" gap='2'> Add Project</Link>
-         */}
+      </>
+        
       </Flex>
         <Spacer />
+      
         <div className="flex-row">
           {projects && projects.map((project) => (
-
             <div key={project._id} className="">
               <div className="card">
                 <Link
@@ -178,5 +165,4 @@ const validateProjectForm = (data) => {
     </div >
   );
 };
-
 export default ProjectList;
