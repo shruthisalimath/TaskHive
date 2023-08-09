@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { DndContext, rectIntersection } from "@dnd-kit/core";
+import { DndContext, rectIntersection, useSensor, useSensors, PointerSensor } from "@dnd-kit/core";
 import TaskLane from "../TaskLane";
 import AddCard from "../AddCard";
 import { useQuery, useMutation } from "@apollo/client";
@@ -18,19 +18,21 @@ export default function TaskBoard() {
     variables: { projectId },
   });
 
-  const [todoItems, setTodoItems] = useState([]);
-  const [inProgressItems, setInProgressItems] = useState([]);
-  const [doneItems, setDoneItems] = useState([]);
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    })
+  );
+
+  const [updateTask] = useMutation(UPDATE_TASK);
+
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     if (data) {
-      const { tasks } = data.project;
-      const newTodoItems = tasks.filter((task) => task.status === "To-Do");
-      const newInProgressItems = tasks.filter((task) => task.status === "In Progress");
-      const newDoneItems = tasks.filter((task) => task.status === "Completed");
-      setTodoItems(newTodoItems);
-      setInProgressItems(newInProgressItems);
-      setDoneItems(newDoneItems);
+      setTasks(data.project.tasks);
     }
   }, [data]);
 
@@ -42,28 +44,43 @@ export default function TaskBoard() {
       const { data: addTaskData } = await addTask({
         variables: {
           projectId,
-          name: newTask.name,
-          comment: newTask.comment,
-          status: newTask.status,
-          dueDate: newTask.dueDate,
+          ...newTask,
         },
       });
 
-      const updatedTasks = [...todoItems, addTaskData.addTask];
-      setTodoItems(updatedTasks);
+      setTasks([...tasks, addTaskData.addTask]);
     } catch (error) {
       console.error("Error adding task:", error);
     }
   };
 
+  const handleTaskDrop = async (taskId, newStatus) => {
+    try {
+      await updateTask({
+        variables: {
+          taskId,
+          status: newStatus,
+        },
+      });
+
+      const updatedTasks = tasks.map((task) =>
+        task._id === taskId ? { ...task, status: newStatus } : task
+      );
+
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
+
   return (
-    <DndContext collisionDetection={rectIntersection}>
+    <DndContext sensors={sensors} collisionDetection={rectIntersection}>
       <div style={flexContainerStyle}>
-        <AddCard addTask={handleAddTask}/>
+        <AddCard addTask={handleAddTask} />
         <div style={{ display: "flex" }}>
-          <TaskLane title="To-Do" tasks={todoItems} />
-          <TaskLane title="In Progress" tasks={inProgressItems} />
-          <TaskLane title="Completed" tasks={doneItems} />
+          <TaskLane title="To-Do" tasks={tasks.filter((task) => task.status === "To-Do")} onTaskDrop={handleTaskDrop} />
+          <TaskLane title="In Progress" tasks={tasks.filter((task) => task.status === "In Progress")} onTaskDrop={handleTaskDrop} />
+          <TaskLane title="Completed" tasks={tasks.filter((task) => task.status === "Completed")} onTaskDrop={handleTaskDrop} />
         </div>
       </div>
     </DndContext>
