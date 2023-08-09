@@ -18,7 +18,7 @@ type Project {
         description: String
         startDate: String
         endDate: String
-        tasks: [Task]!
+        tasks: [Task]
     }
 
     type Task {

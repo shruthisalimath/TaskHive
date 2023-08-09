@@ -54,7 +54,7 @@ export const QUERY_USERS = gql`
                     comment
                     status
                     dueDate
-                    assignedTo
+                    
                 }
             }
         }
@@ -78,4 +78,15 @@ export const QUERY_TASKS = gql`
             }
         }
     }
+
 `;
+
+export const QUERY_ME = gql `
+query Me{
+    me {
+        _id
+        firstName
+        lastName
+        email
+    }
+}`;

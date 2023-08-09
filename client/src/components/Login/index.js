@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
 import { useNavigate } from 'react-router-dom';
-
+import Auth from '../../utils/auth';
 function LoginForm() {
   const [formData, setFormData] = useState({
     email: '',
@@ -26,11 +26,12 @@ function LoginForm() {
         const result = await loginUser({
           variables: { ...formData },
         });
-        const {token, user} = result.data.login;
+        const { token, user } = result.data.login;
         console.log('Login successful. Token:', token);
         localStorage.setItem('token', `Bearer ${token}`);
+        //Auth.login(token);
         navigate('/home');
-        // TODO: Save the token to localStorage or a state to manage authentication.
+       
       } catch (error) {
         console.error('error logging in user:', error);
       }

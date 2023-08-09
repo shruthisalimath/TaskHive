@@ -6,11 +6,11 @@ const SideBar = ({projects}) => {
     console.log(projects)
     return (
         <aside className="sidebar-items">
-            <h2>Options</h2>
+            {/* <h2>Options</h2>
             <div className="sidebar-option">
                 <Link className='link new-project' to='/projects'> Create Project</Link>
                 <Link className='link new-project' to='/projects'> Delete Project </Link>
-            </div>
+            </div> */}
             <h2>Projects</h2>
             <ul>
                 {projects && projects.map((project) => (

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { ChakraProvider } from '@chakra-ui/react';
+import './index.css'
+
 import Home from './pages/Home';
 import Project from './pages/Project';
 import AuthPage from './pages/AuthPage';
@@ -30,7 +33,9 @@ const client = new ApolloClient({
 
 function App() {
   return (
+    
     <ApolloProvider client={client}>
+      <ChakraProvider>
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
           <Routes>
@@ -38,10 +43,17 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/projects/:projectId" element={<Project />} />
             Add more routes as needed
+                {/* <Route 
+                  path="/addProject" 
+                  element={<AddProject />} 
+                /> */}
           </Routes>
+              
         </div>
       </Router>
+          </ChakraProvider>
     </ApolloProvider>
+    
   );
 }
 

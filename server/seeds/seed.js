@@ -1,23 +1,23 @@
 const db = require('../config/connection');
-const { Users, Projects, Tasks } = require('../models');
+const { User, Project, Task } = require('../models');
 const usersSeeds = require('./usersSeeds.json');
 const projectsSeeds = require('./projectsSeeds.json');
 const tasksSeeds = require('./tasksSeeds.json');
 
 db.once('open', async () => {
   try {
-    await Projects.deleteMany({});
-    await Users.deleteMany({});
-    await Tasks.deleteMany({});
+    await Project.deleteMany({});
+    await User.deleteMany({});
+    await Task.deleteMany({});
 
     // Seed Users
-    await Users.create(usersSeeds);
+    await User.create(usersSeeds);
 
     // Seed Projects 
-    await Projects.create(projectsSeeds);
+    await Project.create(projectsSeeds);
 
     // Seed Tasks
-    await Tasks.create(tasksSeeds);
+    await Task.create(tasksSeeds);
 
   } catch (err) {
     console.error(err);

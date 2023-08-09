@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { useNavigate } from "react-router-dom";
 import logo from '../../assets/TaskHiveLogo.svg';
-
+import Auth from "../../utils/auth"
 
 function NavBar() {
   function logout() {
@@ -18,7 +18,7 @@ function NavBar() {
       <img className='logo' src={logo} alt='TaskHive Logo'/>
       <div className="links">
         <Link to="/home">Profile</Link>
-        <Link to="/" onClick={logout}>
+        <Link to="/" onClick={() => Auth.logout()}>
           Logout
         </Link>
       </div>
