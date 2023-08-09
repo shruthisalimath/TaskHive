@@ -29,7 +29,7 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_PROJECT = gql`
-  mutation addProject($userId: ID!, $projectName: String!, $projectDescription: String!, $startDate: String, $endDate: String) {
+  mutation addProject($userId: ID!, $projectName: String!, $projectDescription: String, $startDate: String, $endDate: String) {
     addProject(
       userId: $userId
       name: $projectName
@@ -42,29 +42,21 @@ export const ADD_PROJECT = gql`
       description
       startDate
       endDate
+      tasks {
+        _id
+        name
+        status
+        comment
+        dueDate
+      }
      
     }
   }
 `;
 
 export const REMOVE_PROJECT = gql`
-  mutation removeProject($projectId: ID!) {
-    removeProject(projectId: $projectId) {
-      _id
-      name
-      description
-      startDate
-      endDate
-      tasks {
-        _id
-        name
-      }
-      users {
-        _id
-        firstName
-        lastName
-      }
-    }
+mutation deleteProject($projectId: ID!) {
+  deleteProject(projectId: $projectId) 
   }
 `;
 

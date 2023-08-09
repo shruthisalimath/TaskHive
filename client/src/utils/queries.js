@@ -54,7 +54,7 @@ export const QUERY_USERS = gql`
                     comment
                     status
                     dueDate
-                    
+                    projectName
                 }
             }
         }
