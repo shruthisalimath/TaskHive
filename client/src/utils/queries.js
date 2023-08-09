@@ -84,4 +84,16 @@ export const QUERY_TASKS = gql`
             }
         }
     }
+
 `;
+
+export const QUERY_ME = gql `
+{
+    me{
+        _id
+    }
+}
+
+
+
+`
