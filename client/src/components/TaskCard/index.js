@@ -1,4 +1,5 @@
 import React from "react";
+import dayjs from "dayjs";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { useMutation } from "@apollo/client";
@@ -64,7 +65,7 @@ const TaskCard = ({ task }) => {
       <p>{task.name}</p>
       <p>Comment: {task.comment}</p>
       <p>Status: {task.status}</p>
-      <p>Due Date: {task.dueDate}</p>
+      <p>Due Date: {dayjs(task.dueDate).format("MM/DD/YYYY")}</p>
       <button onClick={handleDeleteTask}>Delete</button>
     </div>
   );
