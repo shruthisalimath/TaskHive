@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+
 const taskSchema = new Schema({
   name: {
     type: String,
@@ -11,16 +12,14 @@ const taskSchema = new Schema({
     enum: ['To-Do', 'In Progress', 'Completed'],
   },
   dueDate: Date,
-  projectName: {
+  projectId: {
     type: Schema.Types.ObjectId,
     ref: 'Projects',
   },
-  // assignedTo: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Users', 
-  // },
 });
 
+
 const Task = model('Task', taskSchema);
+
 
 module.exports = Task;

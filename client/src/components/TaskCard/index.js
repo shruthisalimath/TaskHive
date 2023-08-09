@@ -5,13 +5,17 @@ import { CSS } from "@dnd-kit/utilities";
 import { useMutation } from "@apollo/client";
 import { UPDATE_TASK, REMOVE_TASK } from "../../utils/mutations";
 
-const TaskCard = ({ task }) => {
+
+const TaskCard = ({ task, projectId }) => {
+  console.log("projectId", projectId)
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: task._id,
   });
 
+
   const [updateTask] = useMutation(UPDATE_TASK);
   const [removeTask] = useMutation(REMOVE_TASK);
+
 
   const style = {
     padding: "8px",
@@ -23,6 +27,7 @@ const TaskCard = ({ task }) => {
     transform: CSS.Translate.toString(transform),
     cursor: "grab",
   };
+
 
   const handleTaskDrop = async (newStatus) => {
     try {
@@ -37,7 +42,9 @@ const TaskCard = ({ task }) => {
     }
   };
 
+
   const handleDeleteTask = async () => {
+    console.log("deleting task:", task._id, task.projectId)
     try {
       await removeTask({
         variables: {
@@ -48,6 +55,12 @@ const TaskCard = ({ task }) => {
       console.error("Error deleting task:", error);
     }
   };
+
+
+  const openModal = () => {
+    console.log("edit task:", task)
+  }
+
 
   return (
     <div
@@ -63,12 +76,15 @@ const TaskCard = ({ task }) => {
       }}
     >
       <p>{task.name}</p>
+      <p>projectId: {task.projectId}</p>
       <p>Comment: {task.comment}</p>
       <p>Status: {task.status}</p>
       <p>Due Date: {dayjs(task.dueDate).format("MM/DD/YYYY")}</p>
       <button onClick={handleDeleteTask}>Delete</button>
+      <button onClick={openModal}>Edit</button>
     </div>
   );
 };
+
 
 export default TaskCard;
