@@ -63,17 +63,17 @@ mutation deleteProject($projectId: ID!) {
 export const UPDATE_PROJECT = gql`
   mutation updateProject(
     $projectId: ID!
-    $name: String!
-    $description: String!
-    $tasks: [ID]
-    $users: [ID]
+    $projectName: String
+    $projectDescription: String
+    $startDate: String
+    $endDate: String
   ) {
     updateProject(
       projectId: $projectId
       name: $projectName
       description: $projectDescription
-      tasks: $tasks
-      users: $users
+      startDate: $startDate
+      endDate: $endDate
     ) {
       _id
       name
@@ -83,11 +83,9 @@ export const UPDATE_PROJECT = gql`
       tasks {
         _id
         name
-      }
-      users {
-        _id
-        firstName
-        lastName
+        status
+        comment
+        dueDate
       }
     }
   }
