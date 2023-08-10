@@ -22,17 +22,17 @@ Task Hive is a project management application that allows users to create projec
 
 No installation is required to use this project simply navigate to the web aplication and get started!
 
-[Task Hive](https://task-hive.herokuapp.com/)
+[Task Hive](https://taskhive-3576fd3630ff.herokuapp.com/)
 
 ## Usage
 
 To use the Task Hive application, follow these simple steps:
 
-1. Navigate to the deployed [Web Application](https://task-hive.herokuapp.com/)
+1. Navigate to the deployed [Task Hive](https://taskhive-3576fd3630ff.herokuapp.com/)
 2. Sign in with existing log in creditials or create a new one!
 3. Start adding projects/tasks and tracking your work!
 
-![Deployed Screenshot](./client/public/logo192.png)
+![Deployed Screenshot](client/public/taskhive_login.png)
 
 ## Credits
 
