@@ -22,14 +22,14 @@ const TaskCard = ({ task, projectId }) => {
   });
 
   const style = {
-    padding: "8px",
-    backgroundColor: "white",
-    margin: "8px",
-    borderRadius: "8px",
-    border: "2px solid gray",
-    boxShadow: "0px 0px 5px 2px #2121213b",
-    transform: CSS.Translate.toString(transform),
-    cursor: "grab",
+    // padding: "8px",
+    // backgroundColor: "white",
+    // margin: "8px",
+    // borderRadius: "8px",
+    // border: "2px solid gray",
+    // boxShadow: "0px 0px 5px 2px #2121213b",
+    // transform: CSS.Translate.toString(transform),
+    // cursor: "grab",
   };
 
   const handleTaskDrop = async (newStatus) => {
@@ -82,7 +82,7 @@ const TaskCard = ({ task, projectId }) => {
 
   return (
     <div
-      style={style}
+      className="task-card"
       {...attributes}
       {...listeners}
       ref={setNodeRef}

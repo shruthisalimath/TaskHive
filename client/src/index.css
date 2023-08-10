@@ -46,6 +46,8 @@ h1 {
 
 h2 {
   color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 800;
 }
 
 h4 {
@@ -155,7 +157,7 @@ h4 {
   text-decoration: none;
   color: var(--primary-color);
   font-weight:bold;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 /* .dark-link:hover {
@@ -183,22 +185,13 @@ h4 {
   align-items: flex-start;
   background-color: var(--background-light);
   min-height: 75vh;
+  padding-top: 40px;
 }
 
 .task-column {
   display: flex;
   flex-direction: column;
   background-color: white;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  min-width: 300px;
-  max-width: 300px;
-  height: 100%;
-}
-
-.task-card {
-  background-color: var(--secondary-color);
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
@@ -261,9 +254,73 @@ h4 {
   color: var(--secondary-color);
 }
 
+textarea {
+  border-radius: 5px;
+  padding-left: 24px;
+  padding-left: 10px;
+  margin: 10px;
+  height: 100px;
+  width: 80%;
+  background-color: var(--background-medium);
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+textarea::placeholder {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+input {
+  border-radius: 5px;
+  padding: 24px;
+  margin: 10px;
+  height: 32px;
+  width: 80%;
+  background-color: var(--background-medium);
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+input::placeholder {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+select {
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  height: 50px;
+  width: 80%;
+  background-color: var(--background-medium);
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+input:focus {
+  outline: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  border: 2px solid var(--primary-color);
+}
 .login-input {
   border-radius: 5px;
   padding: 10px;
+  margin: 10px;
+  height: 32px;
+  width: 80%;
+  background-color: var(--background-medium);
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+#dueDate {
+  border-radius: 5px;
+  padding: 20px;
   margin: 10px;
   height: 32px;
   width: 80%;
@@ -289,4 +346,26 @@ h4 {
   height: 100px;
   width: 250px;
   margin-left: 24px;
+}
+
+.lane {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: -0.25px 0.45px 1px .5px rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  display:flex;
+  flex-direction: column;
+  width: 90%;
+}
+.task-card {
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: -0.25px 0.45px 1px .5px rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  margin-bottom: 20px;
+  display:flex;
+  flex-direction: column;
+  width: 90%;
 }
