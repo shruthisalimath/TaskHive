@@ -179,7 +179,7 @@ const renderUpdateModal = () => (
           <h2>Your Projects</h2>
 
           <>
-            <Button onClick={onOpen} colorScheme='yellow'>Add Project</Button>
+            <Button onClick={onOpenAddModal} colorScheme='yellow'>Add Project</Button>
 
             <Modal
               initialFocusRef={initialRef}
