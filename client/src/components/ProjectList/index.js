@@ -172,9 +172,7 @@ const ProjectList = ({ projects }) => {
     );
 
     console.log(projects);
-    if (projects.length <= 0) {
-      return <h3>No Projects Yet</h3>;
-    }
+   
     return (
       <div>
         <div className="flex-row justify-space-between my-4">
