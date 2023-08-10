@@ -1,25 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { QUERY_PROJECTS } from '../../utils/queries';
+import { useQuery } from '@apollo/client';
 
+const SideBar = () => {
+    const { loading, data } = useQuery(QUERY_PROJECTS);
+    const projects = data?.projects || [];
 
-const SideBar = ({projects}) => {
-    console.log(projects)
     return (
         <aside className="sidebar-items">
-            {/* <h2>Options</h2>
-            <div className="sidebar-option">
-                <Link className='link new-project' to='/projects'> Create Project</Link>
-                <Link className='link new-project' to='/projects'> Delete Project </Link>
-            </div> */}
             <h2>Projects</h2>
             <ul>
-                {projects && projects.map((project) => (
-                    <li key={project._id}>
-                        <Link className="link" to={`/projects/${project._id}`}>
-                            <span >{project.name}</span>
-                        </Link>
-                    </li>
-                ))}
+                {loading ? (
+                    <li>Loading...</li>
+                ) : (
+                    projects.map((project) => (
+                        <li key={project._id}>
+                            <Link className="link" to={`/projects/${project._id}`}>
+                                <span>{project.name}</span>
+                            </Link>
+                        </li>
+                    ))
+                )}
             </ul>
         </aside>
     );
