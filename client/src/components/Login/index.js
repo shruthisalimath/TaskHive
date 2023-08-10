@@ -64,7 +64,7 @@ function LoginForm() {
 
   return (
     <div className='login-form'>
-      <h2>Login</h2>
+      <h1>Welcome</h1>
       <form onSubmit={handleSubmit}>
         <div>
           {/* <label htmlFor="email">Email: </label> */}
