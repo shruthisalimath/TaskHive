@@ -217,31 +217,6 @@ const ProjectList = ({ projects }) => {
           </Flex>
           <Spacer />
 
-          <div className="flex-row">
-            {projects && projects.map((project) => (
-              <div key={project._id} className="">
-                <div className="card">
-                  <Link
-                    className="dark-link"
-                    to={`/projects/${project._id}`}
-                  >
-                    {project.name}
-                  </Link>
-                  <Box>
-                    <Flex justify="flex-end" align="flex-end">
-                      {/* Update Project Button */}
-                      <IconButton
-                        isRound={true}
-                        variant='solid'
-                        colorScheme='teal'
-                        aria-label='Done'
-                        fontSize='20px'
-                        marginRight={3}
-                        icon={<EditIcon />}
-                        onClick={() => { onOpenUpdateModal() }}
-                      />
-                      {/* {renderUpdateModal()} */}
-
         <div className="projects-list-div">
           {projects && projects.map((project) => (
             <div key={project._id} className="">
@@ -285,10 +260,11 @@ const ProjectList = ({ projects }) => {
                 <h4 className="">Project endDate: {project.endDate}</h4> */}
                 {/* <h4 className="">Project Description: {project.tasks}</h4> */}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-        {renderUpdateModal()}
+        </div>
+         {/* {renderUpdateModal()} */}
       </div >
     );
   };
