@@ -89,11 +89,27 @@ export const QUERY_TASKS = gql`
 
 
 export const QUERY_ME = gql `
-query Me{
+query Me {
     me {
         _id
         firstName
         lastName
         email
+        projects {
+            _id
+            name
+            description
+            startDate
+            endDate
+            tasks {
+                _id
+                name
+                comment
+                status
+                dueDate
+               
+            }
+        }
     }
-}`;
+}
+`;

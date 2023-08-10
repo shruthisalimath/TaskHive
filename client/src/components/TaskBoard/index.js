@@ -83,9 +83,9 @@ export default function TaskBoard() {
   // return statement renders the page
   return (
     <DndContext sensors={sensors} collisionDetection={rectIntersection}>
-      <div style={flexContainerStyle}>
+      <div className="task-area" style={flexContainerStyle}>
         <AddCard addTask={handleAddTask} />
-        <div style={{ display: "flex" }}>
+        <div className="lanes" >
           <TaskLane title="To-Do" tasks={tasks.filter((task) => task.status === "To-Do")} onTaskDrop={handleTaskDrop} />
           <TaskLane title="In Progress" tasks={tasks.filter((task) => task.status === "In Progress")} onTaskDrop={handleTaskDrop} />
           <TaskLane title="Completed" tasks={tasks.filter((task) => task.status === "Completed")} onTaskDrop={handleTaskDrop} />
