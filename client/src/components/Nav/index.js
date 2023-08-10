@@ -17,7 +17,7 @@ function NavBar() {
     <div className="nav-bar">
       <img className='logo' src={logo} alt='TaskHive Logo'/>
       <div className="links">
-        <Link to="/home">Profile</Link>
+        <Link to="/home">Home</Link>
         <Link to="/" onClick={() => Auth.logout()}>
           Logout
         </Link>

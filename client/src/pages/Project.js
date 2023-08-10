@@ -10,6 +10,7 @@ import TaskBoard from '../components/TaskBoard';
 import {DndContext} from '@dnd-kit/core';
 
 import ProjectList from '../components/ProjectList';
+import Nav from '../components/Nav';
 import Sidebar from '../components/SideBar';
 import DraggableCard from '../components/DraggableCard';
 import DroppableZone from '../components/DroppableZone';
@@ -49,8 +50,13 @@ const Project = () => {
   }
   return (
     <div>
+      <Nav />
+      <div className='homeContent'>
+      <div className="sidebar">
+        <Sidebar />
+      </div>
       <TaskBoard />
-
+      </div>
       </div>
 
   );
