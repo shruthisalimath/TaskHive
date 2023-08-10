@@ -215,7 +215,7 @@ const renderUpdateModal = () => (
         </Flex>
         <Spacer />
 
-        <div className="flex-row">
+        <div className="projects-list-div">
           {projects && projects.map((project) => (
             <div key={project._id} className="">
               <div className="card">
@@ -225,6 +225,7 @@ const renderUpdateModal = () => (
                 >
                   {project.name}
                 </Link>
+                <h4 className="">Description: {project.description}</h4>
                 <Box>
                   <Flex justify="flex-end" align="flex-end">
                     {/* Update Project Button */}
@@ -253,10 +254,8 @@ const renderUpdateModal = () => (
                     {/* </Link> */}
                   </Flex>
                 </Box>
-
-                <h4 className="">Project Description: {project.description}</h4>
-                <h4 className="">Project startDate: {project.startDate}</h4>
-                <h4 className="">Project endDate: {project.endDate}</h4>
+                {/* <h4 className="">Project startDate: {project.startDate}</h4>
+                <h4 className="">Project endDate: {project.endDate}</h4> */}
                 {/* <h4 className="">Project Description: {project.tasks}</h4> */}
               </div>
             </div>

@@ -81,47 +81,43 @@ const TaskCard = ({ task, projectId }) => {
   };
 
   return (
-    <div
-      className="task-card"
-      {...attributes}
-      {...listeners}
-      ref={setNodeRef}
-      onDragEnd={(event) => {
-        const overLane = event.over ? event.over.id : null;
-        if (overLane) {
-          handleTaskDrop(overLane);
-        }
-      }}
-    >
-      <p>{task.name}</p>
-      <p>projectId: {task.projectId}</p>
-      <p>Comment: {task.comment}</p>
-      <p>Status: {task.status}</p>
-      <p>Due Date: {dayjs(parseInt(task.dueDate)).format("MM/DD/YYYY")}</p>
-      <button onClick={handleDeleteTask}>Delete</button>
-      <button onClick={handleEditTask}>Edit</button>
 
+    // Task Card
+    <div className="task-card">
+      <h3>{task.name}</h3>
+      <div className="spacer"></div>
+      <p>{task.comment}</p>
+      <div className="spacer2"></div>
+      <p>Due: {dayjs(parseInt(task.dueDate)).format("MM/DD/YYYY")}</p>
+      <div className="spacer2"></div>
+      <div className='btn-row'>
+        <button className="task-card-btn" onClick={handleEditTask}>Edit</button>
+        <button className="task-card-btn"onClick= {handleDeleteTask}>Delete</button>
+      </div>
+
+
+      {/* @Edit Task Modal@ */}
       {modalIsOpen && (
         <div className="modal">
+        <br></br>
           <div className="modal-content">
             <h2>Edit Task</h2>
-            <label>
-              Name:
+            <div>
+              {/* <p>Name:</p> */}
               <input
+                className='name'
                 type="text"
                 value={editedTask.name}
                 onChange={(e) => setEditedTask({ ...editedTask, name: e.target.value })}
               />
-            </label>
-            <label>
-              Comment:
+          
+              {/* <p>Description:</p> */}
               <textarea
                 value={editedTask.comment}
                 onChange={(e) => setEditedTask({ ...editedTask, comment: e.target.value })}
               />
-            </label>
-            <label>
-              Status:
+          
+              {/* <p>Status:</p> */}
               <select
                 value={editedTask.status}
                 onChange={(e) => setEditedTask({ ...editedTask, status: e.target.value })}
@@ -130,17 +126,19 @@ const TaskCard = ({ task, projectId }) => {
                 <option value="In Progress">In Progress</option>
                 <option value="Completed">Completed</option>
               </select>
-            </label>
-            <label>
-              Due Date:
+
+              {/* <p>Due Date:</p> */}
               <input
+                className='date'
                 type="date"
                 value={editedTask.dueDate}
                 onChange={(e) => setEditedTask({ ...editedTask, dueDate: e.target.value })}
               />
-            </label>
-            <button onClick={saveEditedTask}>Save</button>
-            <button onClick={closeModal}>Cancel</button>
+            <div className="btn-row">
+              <button className="task-card-btn" onClick={saveEditedTask}>Save</button>
+              <button className="task-card-btn" onClick={closeModal}>Cancel</button>
+            </div>
+          </div>
           </div>
         </div>
       )}

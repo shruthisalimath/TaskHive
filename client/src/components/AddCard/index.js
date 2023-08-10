@@ -38,28 +38,36 @@ export default function AddTask() {
   };
 
   return (
-    <div className='task-board'>
-      <h2>Add Task</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="task-form">
+
+      <h2 className='form-label'>Task Name</h2>
+        <div >
           <input
-            placeholder="Task Name"
+            className="name"
+            // placeholder="Task Name"
             type="text"
             id="name"
+            
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
-        <div>
+
+
+        <h2 className='form-label'>Description</h2>
+       
           <textarea
-            placeholder="Description"
+            // placeholder="Description"
             id="comment"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
-        </div>
-        <div>
+
+
+        <div className="task-row">
+        <div className="task-col">
+          <div className='picker'>
           <h2>Status</h2>
           <select
             id="status"
@@ -71,7 +79,9 @@ export default function AddTask() {
             <option value="Completed">Completed</option>
           </select>
         </div>
-        <div>
+        </div>
+        <div className="task-col">
+          <div className='dueDate'>
           <h2>Due Date</h2>
           <input
             type="text"
@@ -83,12 +93,13 @@ export default function AddTask() {
           {dueDate && (
             <p>Formatted Due Date: {dayjs(dueDate).format("MM/DD/YYYY")}</p>
           )}
+          </div>
         </div>
-        <button className="loginBtn"type="submit" disabled={loading}>
+      </div>
+      <button className="taskBtn" type="submit" onClick={handleSubmit} disabled={loading}>
           {loading ? "Adding Task..." : "Add Task"}
         </button>
         {error && <p>Error: {error.message}</p>}
-      </form>
-    </div>
+      </div>
   );
 }
