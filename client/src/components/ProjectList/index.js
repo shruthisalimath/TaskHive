@@ -24,6 +24,12 @@ const ProjectList = ({ projects }) => {
     console.log(user, "CheckUserData");
   }
 
+  let project = null;
+  if (!loading1 && data1 && data1.me) {
+    project = data1.me;
+    console.log(project, "CheckUserData");
+  }
+
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
   const [formState, setformState] = useState({ name: "", description: "" })
@@ -113,7 +119,7 @@ const ProjectList = ({ projects }) => {
         console.log("keep trying");
         const { data } = await updateProject({
           variables: {
-            projectId: updateFormState.projectId,
+            projectId: project.projectId,
             projectName: updateFormState.projectName,
             projectDescription: updateFormState.projectDescription,
             startDate: updateFormState.startDate,
