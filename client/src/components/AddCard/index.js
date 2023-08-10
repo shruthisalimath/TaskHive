@@ -38,12 +38,12 @@ export default function AddTask() {
   };
 
   return (
-    <div>
+    <div className='task-board'>
       <h2>Add Task</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Task Name:</label>
           <input
+            placeholder="Task Name"
             type="text"
             id="name"
             value={name}
@@ -52,15 +52,15 @@ export default function AddTask() {
           />
         </div>
         <div>
-          <label htmlFor="comment">Comment:</label>
           <textarea
+            placeholder="Description"
             id="comment"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor="status">Status:</label>
+          <h2>Status</h2>
           <select
             id="status"
             value={status}
@@ -72,7 +72,7 @@ export default function AddTask() {
           </select>
         </div>
         <div>
-          <label htmlFor="dueDate">Due Date:</label>
+          <h2>Due Date</h2>
           <input
             type="text"
             id="dueDate"
@@ -84,7 +84,7 @@ export default function AddTask() {
             <p>Formatted Due Date: {dayjs(dueDate).format("MM/DD/YYYY")}</p>
           )}
         </div>
-        <button type="submit" disabled={loading}>
+        <button className="loginBtn"type="submit" disabled={loading}>
           {loading ? "Adding Task..." : "Add Task"}
         </button>
         {error && <p>Error: {error.message}</p>}

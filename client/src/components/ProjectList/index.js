@@ -179,7 +179,7 @@ const renderUpdateModal = () => (
           <h2>Your Projects</h2>
 
           <>
-            <Button onClick={onOpenAddModal} colorScheme='yellow'>Add Project</Button>
+            <Button onClick={onOpen} colorScheme='yellow'>Add Project</Button>
 
             <Modal
               initialFocusRef={initialRef}
@@ -244,7 +244,7 @@ const renderUpdateModal = () => (
                     <IconButton
                       isRound={true}
                       variant='solid'
-                      colorScheme='teal'
+                      colorScheme='red'
                       aria-label='Done'
                       fontSize='20px'
                       icon={<DeleteIcon />}
