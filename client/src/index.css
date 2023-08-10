@@ -1,3 +1,5 @@
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -15,12 +17,13 @@ code {
 /* * CSS reset * */
 ul {
   display: block;
-  list-style-type: disc;
+  list-style-type: none;
   margin-block-start: 0em;
   margin-block-end: 0em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding-inline-start: 0px;
+  margin-top:30px;
 }
 
 /* * Global Styles * ---------------------------*/
@@ -50,12 +53,25 @@ h2 {
   font-weight: 800;
 }
 
+h3 {
+  color: var(--background-light);
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
 h4 {
   color: var(--background-light);
   font-size: .7rem;
   font-weight: 500;
   /* margin needs a css reset or the y coords wont work */
-  margin: 16px, 0px, 8px;
+  margin: 16px, 10px, 8px;
+}
+
+p {
+  color: var(--background-light);
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0px;
 }
 
 /* * Component Styles * -----------------------------*/
@@ -111,13 +127,9 @@ h4 {
   padding-top: 20px;
 }
 
-.sidebar-option {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-.sidebar-option a {
-  margin-bottom: 24px;
+.sidebar-items {
+  margin-top: 1px;
+  margin-left: 50px;
 }
 
 .sidebar li {
@@ -128,7 +140,7 @@ h4 {
 .card {
   background-color: rgba(255, 255, 255, 0.2);
   box-shadow: -0.25px 0.45px 1px .5px rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 10px;
   margin: 10px;
   display:flex;
@@ -142,11 +154,27 @@ h4 {
   cursor: pointer;
 }
 
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.card h4 {
+  font-size: 1.2rem;
+  margin: 10px;
+  font-weight: 500;
+}
+.projects-list-div {
+  margin-top: 40px;
+}
+
 .link {
   text-decoration: none;
   color: var(--secondary-color);
   font-weight: bold;
-  font-size: 1.0rem;
+  font-size: 1.2rem;
 }
 
 .link:hover {
@@ -160,52 +188,32 @@ h4 {
   font-size: 1.5rem;
 }
 
-/* .dark-link:hover {
-  color: var(--secondary-color);
-} */
-
 .project-area {
   display: flex;
   flex-direction: column;
   background-color: var(--background-medium);
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 10px;
   margin: 10px;
   width: 75%;
   height: 100%;
 }
 
-
-/* Project Page -------*/
-
-.task-area {
+.project-card {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  background-color: var(--background-light);
-  min-height: 75vh;
-  padding-top: 40px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.task-column {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  min-width: 300px;
-  max-width: 300px;
-  height: 100%;
-}
+/* Login/Sign up pages */
 
 .login-form {
   display: flex;
   flex-direction: column;
   align-items: left;
   background-color: var(--background-medium);
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 20px;
   margin: 10px;
   width: 300px;
@@ -236,7 +244,6 @@ h4 {
   cursor: pointer;
 }
 
-/* selector for login button press */
 .loginBtn:active {
   background-color: var(--primary-color);
   box-shadow: 0 1px white;
@@ -247,33 +254,15 @@ h4 {
   flex-direction: column;
   align-items: center;
   background-color: var(--background-dark);
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 20px;
   width: 100%;
   height: 100vh;
   color: var(--secondary-color);
 }
 
-textarea {
-  border-radius: 5px;
-  padding-left: 24px;
-  padding-left: 10px;
-  margin: 10px;
-  height: 100px;
-  width: 80%;
-  background-color: var(--background-medium);
-  border: 2px solid var(--secondary-color);
-  color: var(--secondary-color);
-  font-weight: bold;
-}
-
-textarea::placeholder {
-  color: var(--secondary-color);
-  font-weight: bold;
-}
-
 input {
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 24px;
   margin: 10px;
   height: 32px;
@@ -289,38 +278,16 @@ input::placeholder {
   font-weight: bold;
 }
 
-select {
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  height: 50px;
-  width: 80%;
-  background-color: var(--background-medium);
-  border: 2px solid var(--secondary-color);
-  color: var(--secondary-color);
-  font-weight: bold;
-}
-
 input:focus {
   outline: none;
   color: var(--primary-color);
   font-weight: bold;
   border: 2px solid var(--primary-color);
 }
+
 .login-input {
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 10px;
-  margin: 10px;
-  height: 32px;
-  width: 80%;
-  background-color: var(--background-medium);
-  border: 2px solid var(--secondary-color);
-  color: var(--secondary-color);
-  font-weight: bold;
-}
-#dueDate {
-  border-radius: 5px;
-  padding: 20px;
   margin: 10px;
   height: 32px;
   width: 80%;
@@ -348,24 +315,254 @@ input:focus {
   margin-left: 24px;
 }
 
-.lane {
+/* Tasks Page -------*/
+
+.task-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: var(--background-medium);
+  min-height: 75vh;
+  margin: 40px;
+  width: 100%;
+}
+
+.task-form {
   background-color: rgba(255, 255, 255, 0.2);
   box-shadow: -0.25px 0.45px 1px .5px rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  display:flex;
-  flex-direction: column;
-  width: 90%;
-}
-.task-card {
-  background-color: rgba(255, 255, 255, 0.4);
-  box-shadow: -0.25px 0.45px 1px .5px rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
+  border-radius: 8px;
+  padding: 20px;
+  padding-right: 40px;
+  width: 100%;
   margin-bottom: 20px;
   display:flex;
   flex-direction: column;
-  width: 90%;
+}
+
+.form-label {
+  margin-left: 10px;
+}
+
+.task-form input {
+  border: none;
+  outline: none;
+}
+
+.task-form input:focus {
+  border: none;
+  outline: none;
+}
+
+.name {
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
+  height: 60px;
+  width: 100%;
+  background-color: var(--background-medium);
+  border: none;
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+textarea {
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
+  margin-right: 10px;
+  width: 100%;
+  height: 100px;
+  background-color: var(--background-medium);
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+textarea::placeholder {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.task-row {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0px;
+  align-items: space-between;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.task-col {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  padding: 10px;
+  padding-top: 0px;
+  width: 100%;
+}
+
+select {
+  border-radius: 8px;
+  height: 60px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: var(--background-medium);
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+#dueDate {
+  border-radius: 8px;
+  height: 60px;
+  margin: 0px;
+  margin-top: 10px;
+  width: 105%;
+  background-color: var(--background-medium);
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.date {
+  border-radius: 8px;
+  height: 60px;
+  margin: 0px;
+  margin-top: 10px;
+  width: 105%;
+  background-color: var(--background-medium);
+  color: var(--secondary-color);
+  font-weight: bold;
+  border: none;
+}
+
+.spacer {
+  height: 3px;
+  background-color: var(--background-light);
+  margin-bottom: 10px;
+}
+
+.spacer2 {
+  height: 1px;
+  background-color: var(--background-light);
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.taskBtn {
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
+  height: 60px;
+  background-color: var(--primary-color);
+  color: var(--background-medium);
+  font-weight: 900;
+  width: 100%;
+  border: 1px solid var(--primary-color);
+}
+
+.taskBtn:hover {
+  outline: none;
+  border:none;
+  background-color: var(--background-medium);
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.loginBtn:hover {
+  outline: none;
+  border:none;
+  background-color: var(--secondary-color);
+  cursor: pointer;
+}
+
+.loginBtn:active {
+  background-color: var(--primary-color);
+  box-shadow: 0 1px white;
+}
+
+.lanes{
+  flex-direction: row;
+  display: flex;
+  align-items: space-between;
+  background-color: var(--background-medium);
+  margin-top: 10px;
+  width: 100%;
+}
+
+.lane {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: -0.25px 0.45px 1px .5px rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding-left: 10px;
+  width: 100%;
+  margin-right: 10px;
+}
+
+.lane h2 {
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.task-card {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: -0.25px 0.45px 1px .5px rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  margin-bottom: 20px;
+  display:flex;
+  flex-direction: column;
+  width: auto;
+}
+
+.task-card:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0.25px 0.45px 1px .5px rgba(255, 255, 255, 0.5);
+  cursor: auto;
+}
+
+.btn-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.task-card-btn {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+.task-card-btn:hover {
+  color: var(--background-medium);
+  font-weight: 700;
+}
+
+.modal .name {
+  margin-left: 0px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--background-medium);
+}
+
+.modal textarea {
+  margin-left: 0px;
+  min-height: 200px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--background-medium);
+}
+
+.modal select {
+  margin: 0px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--background-medium);
+  margin-bottom: 10px;
+}
+
+.modal .date {
+  margin-left: 0px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--background-medium);
+  margin-right:none;
+  width: 100%;
+  margin-bottom: 20px;
 }

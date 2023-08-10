@@ -242,25 +242,48 @@ const ProjectList = ({ projects }) => {
                       />
                       {/* {renderUpdateModal()} */}
 
-                      {/* Delete Project Button */}
-                      <IconButton
-                        isRound={true}
-                        variant='solid'
-                        colorScheme='red'
-                        aria-label='Done'
-                        fontSize='20px'
-                        icon={<DeleteIcon />}
-                        onClick={() => handleProjectDelete(project)}
-                      />
-                      {/* </Link> */}
-                    </Flex>
-                  </Box>
-
-                  <h4 className="">Project Description: {project.description}</h4>
-                  <h4 className="">Project startDate: {project.startDate}</h4>
-                  <h4 className="">Project endDate: {project.endDate}</h4>
-                  {/* <h4 className="">Project Description: {project.tasks}</h4> */}
-                </div>
+        <div className="projects-list-div">
+          {projects && projects.map((project) => (
+            <div key={project._id} className="">
+              <div className="card">
+                <Link
+                  className="dark-link"
+                  to={`/projects/${project._id}`}
+                >
+                  {project.name}
+                </Link>
+                <h4 className="">Description: {project.description}</h4>
+                <Box>
+                  <Flex justify="flex-end" align="flex-end">
+                    {/* Update Project Button */}
+                    <IconButton
+                      isRound={true}
+                      variant='solid'
+                      colorScheme='teal'
+                      aria-label='Done'
+                      fontSize='20px'
+                      marginRight={3}
+                      icon={<EditIcon />}
+                    onClick={onOpenUpdateModal}
+                    />
+                    {renderUpdateModal()}
+                    
+                    {/* Delete Project Button */}
+                    <IconButton
+                      isRound={true}
+                      variant='solid'
+                      colorScheme='red'
+                      aria-label='Done'
+                      fontSize='20px'
+                      icon={<DeleteIcon />}
+                      onClick={() => handleProjectDelete(project)}
+                    />
+                    {/* </Link> */}
+                  </Flex>
+                </Box>
+                {/* <h4 className="">Project startDate: {project.startDate}</h4>
+                <h4 className="">Project endDate: {project.endDate}</h4> */}
+                {/* <h4 className="">Project Description: {project.tasks}</h4> */}
               </div>
             ))}
           </div>
