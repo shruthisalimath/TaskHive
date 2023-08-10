@@ -147,8 +147,26 @@ p {
   padding: 10px;
   margin: 10px;
   display:flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 90%;
+}
+
+.left-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  padding: 10px;
+  width: 50%;
+}
+
+.right-col  {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 10px;
+  width: 50%;
 }
 
 .card:Hover {
