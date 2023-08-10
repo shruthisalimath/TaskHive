@@ -97,7 +97,7 @@ const TaskCard = ({ task, projectId }) => {
       <p>projectId: {task.projectId}</p>
       <p>Comment: {task.comment}</p>
       <p>Status: {task.status}</p>
-      <p>Due Date: {dayjs(task.dueDate).format("MM/DD/YYYY")}</p>
+      <p>Due Date: {dayjs(parseInt(task.dueDate)).format("MM/DD/YYYY")}</p>
       <button onClick={handleDeleteTask}>Delete</button>
       <button onClick={handleEditTask}>Edit</button>
 
