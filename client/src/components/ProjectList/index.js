@@ -181,7 +181,7 @@ const ProjectList = ({ projects }) => {
             <h2>Your Projects</h2>
 
             <>
-              <Button onClick={onOpenAddModal} colorScheme='yellow'>Add Project</Button>
+              <Button mx='-7' mb='-1.5' mt='3' onClick={onOpenAddModal} colorScheme='yellow'>New Project</Button>
 
               <Modal
                 initialFocusRef={initialRef}
@@ -221,6 +221,7 @@ const ProjectList = ({ projects }) => {
           {projects && projects.map((project) => (
             <div key={project._id} className="">
               <div className="card">
+                <div className="left-col">
                 <Link
                   className="dark-link"
                   to={`/projects/${project._id}`}
@@ -228,6 +229,8 @@ const ProjectList = ({ projects }) => {
                   {project.name}
                 </Link>
                 <h4 className="">Description: {project.description}</h4>
+                </div>
+                <div className="right-col">
                 <Box>
                   <Flex justify="flex-end" align="flex-end">
                     {/* Update Project Button */}
@@ -256,6 +259,7 @@ const ProjectList = ({ projects }) => {
                     {/* </Link> */}
                   </Flex>
                 </Box>
+                </div>
                 {/* <h4 className="">Project startDate: {project.startDate}</h4>
                 <h4 className="">Project endDate: {project.endDate}</h4> */}
                 {/* <h4 className="">Project Description: {project.tasks}</h4> */}
