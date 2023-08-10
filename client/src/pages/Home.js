@@ -7,6 +7,7 @@ import { QUERY_PROJECTS } from '../utils/queries';
 import ProjectList from '../components/ProjectList';
 import Sidebar from '../components/SideBar';
 import Nav from '../components/Nav';
+import Footer from "../components/Footer";
 
 const Home = () => {
     const { loading, data } = useQuery(QUERY_PROJECTS);
@@ -28,6 +29,9 @@ const Home = () => {
               )
             }
           </div>
+        </div>
+        <div className="footerContent">
+          <Footer/>
         </div>
       </main>
     );  
