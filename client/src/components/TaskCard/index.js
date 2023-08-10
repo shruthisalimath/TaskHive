@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
-import { useDraggable } from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
 import { useMutation } from "@apollo/client";
 import { UPDATE_TASK, REMOVE_TASK } from "../../utils/mutations";
 
 const TaskCard = ({ task, projectId }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: task._id,
-  });
 
+  // set up mutation for updating and removing tasks
   const [updateTask] = useMutation(UPDATE_TASK);
   const [removeTask] = useMutation(REMOVE_TASK);
 
+  // set up state for modal & edited task
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editedTask, setEditedTask] = useState({
     name: task.name,
@@ -21,30 +18,7 @@ const TaskCard = ({ task, projectId }) => {
     dueDate: task.dueDate,
   });
 
-  const style = {
-    // padding: "8px",
-    // backgroundColor: "white",
-    // margin: "8px",
-    // borderRadius: "8px",
-    // border: "2px solid gray",
-    // boxShadow: "0px 0px 5px 2px #2121213b",
-    // transform: CSS.Translate.toString(transform),
-    // cursor: "grab",
-  };
-
-  const handleTaskDrop = async (newStatus) => {
-    try {
-      await updateTask({
-        variables: {
-          taskId: task._id,
-          status: newStatus,
-        },
-      });
-    } catch (error) {
-      console.error("Error updating task:", error);
-    }
-  };
-
+  // function to delete task
   const handleDeleteTask = async () => {
     try {
       await removeTask({
@@ -57,14 +31,17 @@ const TaskCard = ({ task, projectId }) => {
     }
   };
 
+  // function to open modal
   const handleEditTask = () => {
     setModalIsOpen(true);
   };
 
+  // function to close modal
   const closeModal = () => {
     setModalIsOpen(false);
   };
 
+  // function to save edited task
   const saveEditedTask = async () => {
     try {
       await updateTask({
