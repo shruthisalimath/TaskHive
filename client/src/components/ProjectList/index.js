@@ -38,7 +38,7 @@ const ProjectList = ({ projects }) => {
   const [deleteProject] = useMutation(REMOVE_PROJECT);
   const [updateProject] = useMutation(UPDATE_PROJECT);
   const [formErrors, setFormErrors] = useState({});
-  const [updateFormState, setupdateFormState] = useState({});
+  const [updateFormState, setupdateFormState] = useState({ });
   //functon to handle add project
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,10 +66,11 @@ const ProjectList = ({ projects }) => {
         },
       });
       console.log('Project created:', data.addProject);
+      
     } catch (error) {
       console.error('Error adding Project:', error);
     }
-
+    window.location.reload();
   };
   const validateProjectForm = (data) => {
     const errors = {};
@@ -93,7 +94,7 @@ const ProjectList = ({ projects }) => {
       console.log('Project Deleted:', project.deleteProjectProject);
     } catch (error) {
       console.error('Error Deleting Project:', error);
-    }
+    } window.location.reload();
   };
 
   //function to handle update project
@@ -134,6 +135,7 @@ const ProjectList = ({ projects }) => {
     }else{
       setFormErrors(errors);
     }
+    window.location.reload();
     };
 
     //Rendering Modals
