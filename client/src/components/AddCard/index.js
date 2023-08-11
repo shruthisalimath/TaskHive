@@ -34,7 +34,7 @@ export default function AddTask() {
       setDueDate("");
     } catch (error) {
       console.error("Error adding task:", error);
-    }
+    } window.location.reload();
   };
 
   return (

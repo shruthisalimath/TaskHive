@@ -29,6 +29,7 @@ const TaskCard = ({ task, projectId }) => {
     } catch (error) {
       console.error("Error deleting task:", error);
     }
+    window.location.reload();
   };
 
   // function to open modal
@@ -54,7 +55,7 @@ const TaskCard = ({ task, projectId }) => {
       setModalIsOpen(false);
     } catch (error) {
       console.error("Error updating task:", error);
-    }
+    } window.location.reload();
   };
 
   return (
