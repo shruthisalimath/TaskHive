@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IconButton, Box, Flex, Spacer } from '@chakra-ui/react'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
-// import AddProject from "../AddProject/index";
+
 import { Button, FormControl, FormLabel, Input, Textarea, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react';
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_PROJECT, REMOVE_PROJECT, UPDATE_PROJECT } from "../../utils/mutations";
@@ -38,7 +38,13 @@ const ProjectList = ({ projects }) => {
   const [deleteProject] = useMutation(REMOVE_PROJECT);
   const [updateProject] = useMutation(UPDATE_PROJECT);
   const [formErrors, setFormErrors] = useState({});
-  const [updateFormState, setupdateFormState] = useState({ });
+  const [updateFormState, setupdateFormState] = useState({});
+  const [isprojectId, setprojectId] = useState();
+
+  function handleprojectId(id) {
+    setprojectId(id);
+    onOpenUpdateModal();
+  }
   //functon to handle add project
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,7 +72,7 @@ const ProjectList = ({ projects }) => {
         },
       });
       console.log('Project created:', data.addProject);
-      
+
     } catch (error) {
       console.error('Error adding Project:', error);
     }
@@ -112,42 +118,38 @@ const ProjectList = ({ projects }) => {
     e.preventDefault();
     console.log("onsubmit update");
 
+    console.log(e.target);
     const errors = validateProjectForm(updateFormState);
     console.log("project ID ----")
 
-    if (Object.keys(errors).length === 0) {
-      try {
-        console.log("keep trying");
-        const { data } = await updateProject({
-          variables: {
-            projectId: project.projectId,
-            projectName: updateFormState.projectName,
-            projectDescription: updateFormState.projectDescription,
-            startDate: updateFormState.startDate,
-            endDate: updateFormState.endDate,
-          },
-        });
-        console.log('Project updated:', data.updateProject);
-        onCloseUpdateModal();
-      } catch (error) {
-        console.error("Error updating project", error);
-      }
-    }else{
-      setFormErrors(errors);
+    try {
+
+      const { data } = await updateProject({
+        variables: {
+          projectId: isprojectId,
+          projectName: updateFormState.projectName,
+          projectDescription: updateFormState.projectDescription,
+          startDate: updateFormState.startDate,
+          endDate: updateFormState.endDate,
+        },
+      });
+      console.log('Project updated:', data.updateProject);
+      onCloseUpdateModal();
+    } catch (error) {
+      console.error("Error updating project", error);
     }
-    window.location.reload();
-    };
+  
+     window.location.reload();
+  };
 
-    //Rendering Modals
-    // const renderAddModal = () => (
-    // <Modal initialFocusRef={initialRef} finalFocusRef={finalRef} isOpen={isOpenAddModal} onClose={onCloseAddModal}>
-    //   {/* Model Content */}
-    // </Modal>
-    // )
 
-    const renderUpdateModal = () => (
+
+  const renderUpdateModal = () => {
+    const projectToUpdate = projects.find((project) => project._id === isprojectId);
+
+    return (
       <Modal isOpen={isOpenUpdateModal} onClose={onCloseUpdateModal} initialFocusRef={initialRef} finalFocusRef={finalRef}>
-        {/* Model Content*/}
+
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Update your Project</ModalHeader>
@@ -155,16 +157,17 @@ const ProjectList = ({ projects }) => {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Project name</FormLabel>
-              <Input name="projectName"  onChange={handleUpdateProject} ref={initialRef} placeholder='Enter Project name' />
+              <Input value={updateFormState.projectName || projectToUpdate?.name || ''} name="projectName" onChange={handleUpdateProject} ref={initialRef} />
             </FormControl>
+
             <FormControl mt={4}>
               <FormLabel>Project Description</FormLabel>
               {/* <Input placeholder='Last name' /> */}
-              <Textarea name="projectDescription" onChange={handleUpdateProject} placeholder="Enter Your Project Description" />
+              <Textarea value={updateFormState.projectDescription || projectToUpdate?.description || ''} name="projectDescription" onChange={handleUpdateProject} ref={initialRef}  />
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={ handleUpdateSubmit } colorScheme='blue' mr={3}>
+            <Button onClick={handleUpdateSubmit} colorScheme='blue' mr={3}>
               Save
             </Button>
             <Button onClick={onCloseUpdateModal}>Cancel</Button>
@@ -172,95 +175,98 @@ const ProjectList = ({ projects }) => {
         </ModalContent>
       </Modal>
     );
+  };
 
-    console.log(projects);
-   
-    return (
-      <div>
-        <div className="flex-row justify-space-between my-4">
-          <Flex minWidth='max-content' alignItems='center' gap='64%'>
+  console.log(projects);
 
-            <h2>Your Projects</h2>
+  return (
+    <div>
+      <div className="flex-row justify-space-between my-4">
+        <Flex minWidth='max-content' alignItems='center' gap='64%'>
 
-            <>
-              <Button mx='-7' mb='-1.5' mt='3' onClick={onOpenAddModal} colorScheme='yellow'>New Project</Button>
+          <h2>Your Projects</h2>
 
-              <Modal
-                initialFocusRef={initialRef}
-                finalFocusRef={finalRef}
-                isOpen={isOpenAddModal}
-                onClose={onCloseAddModal}
-              >
-                <ModalOverlay />
-                <ModalContent>
-                  <ModalHeader>Add your Project</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody pb={6}>
-                    <FormControl>
-                      <FormLabel>Project name</FormLabel>
-                      <Input name="projectName" onChange={handleChange} ref={initialRef} placeholder='Enter Project name' />
-                    </FormControl>
-                    <FormControl mt={4}>
-                      <FormLabel>Project Description</FormLabel>
-                      {/* <Input placeholder='Last name' /> */}
-                      <Textarea name="projectDescription" onChange={handleChange} placeholder="Enter Your Project Description" />
-                    </FormControl>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button onClick={handleSubmit} colorScheme='blue' mr={3}>
-                      Save
-                    </Button>
-                    <Button onClick={onCloseAddModal}>Cancel</Button>
-                  </ModalFooter>
-                </ModalContent>
-              </Modal>
-            </>
+          <>
+            <Button mx='-7' mb='-1.5' mt='3' onClick={onOpenAddModal} colorScheme='yellow'>New Project</Button>
 
-          </Flex>
-          <Spacer />
+            <Modal
+              initialFocusRef={initialRef}
+              finalFocusRef={finalRef}
+              isOpen={isOpenAddModal}
+              onClose={onCloseAddModal}
+            >
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Add your Project</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody pb={6}>
+                  <FormControl>
+                    <FormLabel>Project name</FormLabel>
+                    <Input name="projectName" onChange={handleChange} ref={initialRef} placeholder='Enter Project name' />
+                  </FormControl>
+                  <FormControl mt={4}>
+                    <FormLabel>Project Description</FormLabel>
+                    {/* <Input placeholder='Last name' /> */}
+                    <Textarea name="projectDescription" onChange={handleChange} placeholder="Enter Your Project Description" />
+                  </FormControl>
+                </ModalBody>
+                <ModalFooter>
+                  <Button onClick={handleSubmit} colorScheme='blue' mr={3}>
+                    Save
+                  </Button>
+                  <Button onClick={onCloseAddModal}>Cancel</Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+          </>
+
+        </Flex>
+        <Spacer />
 
         <div className="projects-list-div">
           {projects && projects.map((project) => (
             <div key={project._id} className="">
               <div className="card">
                 <div className="left-col">
-                <Link
-                  className="dark-link"
-                  to={`/projects/${project._id}`}
-                >
-                  {project.name}
-                </Link>
-                <h4 className="">Description: {project.description}</h4>
+                  <Link
+                    className="dark-link"
+                    to={`/projects/${project._id}`}
+                  >
+                    {project.name}
+                  </Link>
+                  <h4 className="">Description: {project.description}</h4>
+                  
                 </div>
                 <div className="right-col">
-                <Box>
-                  <Flex justify="flex-end" align="flex-end">
-                    {/* Update Project Button */}
-                    <IconButton
-                      isRound={true}
-                      variant='solid'
-                      colorScheme='teal'
-                      aria-label='Done'
-                      fontSize='20px'
-                      marginRight={3}
-                      icon={<EditIcon />}
-                    onClick={onOpenUpdateModal}
-                    />
-                    {renderUpdateModal()}
-                    
-                    {/* Delete Project Button */}
-                    <IconButton
-                      isRound={true}
-                      variant='solid'
-                      colorScheme='red'
-                      aria-label='Done'
-                      fontSize='20px'
-                      icon={<DeleteIcon />}
-                      onClick={() => handleProjectDelete(project)}
-                    />
-                    {/* </Link> */}
-                  </Flex>
-                </Box>
+                  <Box>
+                    <Flex justify="flex-end" align="flex-end">
+                      {/* Update Project Button */}
+                      <IconButton
+                        isRound={true}
+                        variant='solid'
+                        colorScheme='teal'
+                        aria-label='Done'
+                        fontSize='20px'
+                        marginRight={3}
+                        icon={<EditIcon />}
+
+                        onClick={() => handleprojectId(project._id)}
+                      />
+                      {renderUpdateModal()}
+
+                      {/* Delete Project Button */}
+                      <IconButton
+                        isRound={true}
+                        variant='solid'
+                        colorScheme='red'
+                        aria-label='Done'
+                        fontSize='20px'
+                        icon={<DeleteIcon />}
+                        onClick={() => handleProjectDelete(project)}
+                      />
+                      {/* </Link> */}
+                    </Flex>
+                  </Box>
                 </div>
                 {/* <h4 className="">Project startDate: {project.startDate}</h4>
                 <h4 className="">Project endDate: {project.endDate}</h4> */}
@@ -269,10 +275,10 @@ const ProjectList = ({ projects }) => {
             </div>
           ))}
         </div>
-        </div>
-         {/* {renderUpdateModal()} */}
-      </div >
-    );
-  };
-  
-  export default ProjectList;
+      </div>
+      {/* {renderUpdateModal()} */}
+    </div >
+  );
+};
+
+export default ProjectList;
